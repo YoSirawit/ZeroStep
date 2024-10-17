@@ -6,8 +6,9 @@ export async function GET(request) {
     // const petName = searchParams.get('petName');
     try{
          const pets = await sql`SELECT * FROM Pets;`;
+        //  console.log(pets.rows);
         if(pets.rowCount > 0){
-            return NextResponse.json({ pets: pets }, { status: 200 });
+            return NextResponse.json({pets: pets.rows })
         }else{
             return NextResponse.json({ message : 'notfound' }, {status: 404});
         }
