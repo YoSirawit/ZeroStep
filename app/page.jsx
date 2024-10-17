@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server';
 
 async function getPets(){
   try{
-    const pets = await fetch('https://vercel.com/towercans-projects/zero-step/api/get-pet-info', {cache: 'no-store'});
+    const pets = await fetch('https://zero-step-wheat.vercel.app/api/get-pet-info', {cache: 'no-store'});
     const data = await pets.json();
     // console.log(data.pets);
     return data.pets;
