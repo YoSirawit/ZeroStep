@@ -33,8 +33,10 @@ async function Home() {
   return (
     <div>
         <Navbar />
-        <JobSearch />
-        <JobField />
+        <div className="flex-container"> {/* Add this wrapper */}
+            <JobSearch />
+            <JobField />
+        </div>
         <div className='container mx-auto'>
             <h3>Home</h3>
             <h1><Link href="/api/get-pet-info">Test</Link></h1>
