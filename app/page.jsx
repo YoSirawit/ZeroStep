@@ -1,10 +1,12 @@
 // "use client"
 import React from 'react'
 import Navbar from "./components/Navbar";
+import JobSearch from "./components/JobSearch";
 import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import Petinfo from './components/petinfo';
 import { NextResponse } from 'next/server';
+import JobField from './components/JobField';
 
 async function getPets(){
   try{
@@ -31,6 +33,8 @@ async function Home() {
   return (
     <div>
         <Navbar />
+        <JobSearch />
+        <JobField />
         <div className='container mx-auto'>
             <h3>Home</h3>
             <h1><Link href="/api/get-pet-info">Test</Link></h1>
