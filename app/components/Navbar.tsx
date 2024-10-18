@@ -14,11 +14,10 @@ function Navbar() {
           <div className="container mx-auto">
               <div className='flex justify-between items-center'>
                   {/* โลโก้ */}
-                  <Link href="/homeSendResume" className="mr-10">Logo here</Link>  {/*ขอยืมปุ่มแปปนึงนะ เดี๋ยวมาลบออกให้/}
+                  <Link href="/" className="mr-10">Logo here</Link>  {/*ขอยืมปุ่มแปปนึงนะ เดี๋ยวมาลบออกให้/}
                   
                   {/* เมนูรายการ */}
                   <ul className='flex items-center'>
-                      <li className='mx-3'><Link href="/" legacyBehavior><a>Search a job</a></Link></li>
                       <li className='mx-3'><Link href="/createResume" legacyBehavior><a>Create resume</a></Link></li>
                       <li className='mx-3'><Link href="/history" legacyBehavior><a>Applicant history</a></Link></li>
                       <li className='mx-3'>

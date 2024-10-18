@@ -12,9 +12,9 @@ function CompanyPage() {
     const [isJobContent1Visible, setJobContent1Visible] = useState(true);
     const [isJobContent2Visible, setJobContent2Visible] = useState(true);
     const [jobs, setJobs] = useState([
-        { title: 'Job Name 1', candidates: 3, isOpen: true },
-        { title: 'Job Name 2', candidates: 3, isOpen: false },
-        { title: 'Job Name 3', candidates: 3, isOpen: true }
+        { title: 'Position 1', candidates: 3, isOpen: true },
+        { title: 'Position 2', candidates: 3, isOpen: false },
+        { title: 'Position 3', candidates: 3, isOpen: true }
     ]);
 
     const toggleJobContent1 = () => {
@@ -62,13 +62,13 @@ function CompanyPage() {
                 <div className="bg-gray-100 p-5 rounded-lg shadow">
                     <header className="flex justify-between items-center py-3 mb-4">
                         <div className="flex items-center">
-                            <h2 className="text-xl font-bold">Job Name 1</h2>
+                            <h2 className="text-xl font-bold">Position 1</h2>
                             {jobs[0].isOpen ? (
                                 <div className="ml-4 w-3 h-3 bg-green-500 rounded-full"></div>
                             ) : (
                                 <div className="ml-4 w-3 h-3 bg-red-500 rounded-full"></div>
                             )}
-                            <span className="text-sm ml-2 text-gray-500">{jobs[0].isOpen ? 'สถานะ: เปิดรับสมัคร' : 'สถานะ: ปิดรับสมัคร'}</span>
+                            <span className="text-sm ml-2 text-gray-500">{jobs[0].isOpen ? 'status: Open Announcement' : 'status: Closed Announcement'}</span>
                         </div>
                         <div className="flex items-center space-x-4">
                             <span className="text-sm text-gray-500 mr-2">{jobs[0].candidates} Candidates</span>
@@ -109,7 +109,7 @@ function CompanyPage() {
                         <button
                             onClick={toggleJobStatus1}
                             className="p-2 rounded-md bg-black text-white">
-                            {jobs[0].isOpen ? 'ปิดรับสมัคร' : 'เปิดรับสมัคร'}
+                            {jobs[0].isOpen ? 'Closed Announcement' : 'Open Announcement'}
                         </button>
                     </div>
                 </div>
@@ -120,13 +120,13 @@ function CompanyPage() {
                 <div className="bg-gray-100 p-5 rounded-lg shadow">
                     <header className="flex justify-between items-center py-3 mb-4">
                         <div className="flex items-center">
-                            <h2 className="text-xl font-bold">Job Name 2</h2>
+                            <h2 className="text-xl font-bold">Position 2</h2>
                             {jobs[1].isOpen ? (
                                 <div className="ml-4 w-3 h-3 bg-green-500 rounded-full"></div>
                             ) : (
                                 <div className="ml-4 w-3 h-3 bg-red-500 rounded-full"></div>
                             )}
-                            <span className="text-sm ml-2 text-gray-500">{jobs[1].isOpen ? 'สถานะ: เปิดรับสมัคร' : 'สถานะ: ปิดรับสมัคร'}</span>
+                            <span className="text-sm ml-2 text-gray-500">{jobs[1].isOpen ? 'status: Open Announcement' : 'status: Closed Announcement'}</span>
                         </div>
                         <div className="flex items-center space-x-4">
                             <span className="text-sm text-gray-500 mr-2">{jobs[1].candidates} Candidates</span>
@@ -167,7 +167,7 @@ function CompanyPage() {
                         <button
                             onClick={toggleJobStatus2}
                             className="p-2 rounded-md bg-black text-white">
-                            {jobs[1].isOpen ? 'ปิดรับสมัคร' : 'เปิดรับสมัคร'}
+                            {jobs[1].isOpen ? 'Closed Announcement' : 'Open Announcement'}
                         </button>
                     </div>
                 </div>
