@@ -2,6 +2,7 @@
 import React from 'react'
 import Navbar from "./components/Navbar";
 import JobSearch from "./components/JobSearch";
+import JobCount from "./components/JobCount";
 import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import Petinfo from './components/petinfo';
@@ -44,12 +45,22 @@ async function Home() {
   const announcement = await getAnnouncement();
   console.log({announcement});
 
+  
+  const jobPositionsCount = 1; //ดึงจากDatabaseมาอะครับคุณหลังบ้าน
+  const companiesHiringCount = 1; //ดึงจากDatabaseมาอะครับคุณหลังบ้าน
+
 
   return (
     <div>
         <Navbar />
-        <div className="flex-container"> {/* Add this wrapper */}
-            <JobSearch />
+        <div className="flex-container">
+            <div className="job-search-container"> 
+                <JobSearch />
+                <JobCount 
+                  jobPositionsCount={jobPositionsCount} 
+                  companiesHiringCount={companiesHiringCount} 
+                />
+            </div>
             <JobField />
         </div>
         <div className='container mx-auto'>
@@ -75,7 +86,6 @@ async function Home() {
     </div>
   )
 }
-
 
 export default Home
 

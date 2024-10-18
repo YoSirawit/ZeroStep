@@ -23,13 +23,18 @@
 }
 
 .flex-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-  }
-  
-  .flex-container > div {
-    flex: 1;
-    margin: 0 10px;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.job-search-container {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.flex-container > div {
+  flex: 1;
+  margin: 1 0px;
+}
 

@@ -59,9 +59,7 @@ const JobSearch: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                fontFamily: 'Georgia, serif',
                 fontSize: '18px',
-                fontWeight: '300',
                 color: '#555',
             }}>
                 <Box sx={{ 
@@ -127,10 +125,19 @@ const JobSearch: React.FC = () => {
                         renderInput={(params) => <TextField {...params} label="Work hours" />}
                     />
                 </Box>
-
-                <Button variant="contained" color="warning" fullWidth onClick={handleSubmit}>
-                    Find a job!
-                </Button>
+                <Box 
+                    sx={{ 
+                        display: 'flex', 
+                        gap: 2 // Spacing between buttons
+                    }}
+                    >
+                        <Button variant="contained" color="warning" onClick={handleSubmit} sx={{ width: '322px' }}>
+                            Find a job!
+                        </Button>
+                        <Button variant="contained" color="error" /*onClick={} ปุ่มนี้คือ กดปุ้ป จะไปดึงข้อมูลจากข้อมูลของUsersมาFilter แล้วแสดงบนแถบด้านขวาทันที*/ sx={{ width: '322px' }}> 
+                            Match a job!✨
+                        </Button>
+                </Box>
             </Box>
         </Box>
         
