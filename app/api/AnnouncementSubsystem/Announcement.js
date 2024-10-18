@@ -1,3 +1,4 @@
+import '../ApplicantSubsystem'
 class Announcement{
     #id;
     #field;
@@ -65,11 +66,11 @@ class Announcement{
         return this.#softSkillReq;
     }
 
-    static getJobList(user){
-        //
-    }
-
-    static getJobList(job){
-        //
+    static getJobList(input){
+        if (input instanceof Applicant){
+            //for getJobList(Applicant user) : Announcement
+        } else if (input instanceof Job) {
+            //for getJobList(Job job) : Announcement
+        }
     }
 }
