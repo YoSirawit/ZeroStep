@@ -11,7 +11,7 @@ function NavbarCom() {
             <ul className='flex items-center'>
               <li className='mx-3'><Link href="/" legacyBehavior><a>Applicant site</a></Link></li>
               <li className='mx-3 px-5 py-1 pb-2 rounded-md border-2 border-blue-500'><Link href="/login" legacyBehavior><a>Sign in</a></Link></li>
-              <li className='mx-3'><Link href="/logout" legacyBehavior><a>Logout</a></Link></li>
+              <li className='mx-3'><Link href="/" legacyBehavior><a>Logout</a></Link></li>
             </ul>
           </div>
         </div>
