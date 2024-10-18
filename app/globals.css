@@ -22,3 +22,14 @@
     background-color: #4c91ff; /* เปลี่ยนสีเมื่อ hover */
 }
 
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .flex-container > div {
+    flex: 1;
+    margin: 0 10px;
+  }
+

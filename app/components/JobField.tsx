@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography,TextField } from '@mui/material';
 import InfoCard from './InfoCard'; // Adjust the path as necessary
 
 interface JobListing {
@@ -50,15 +50,23 @@ const JobField: React.FC = () => {
     return (
         <Box 
             sx={{
-                width: '500px',  
-                height: '400px', 
+                width: '300px',  
+                height: '600px', 
                 overflowY: 'auto', 
                 border: '1px solid #ccc', 
                 borderRadius: '8px', 
                 padding: 2,
                 backgroundColor: '#f9f9f9',
             }}
+            
         >
+            <TextField 
+                    label="Search" 
+                    variant="outlined" 
+                    sx={{ 
+                        width: '408px',
+                    }}
+                />
             {jobListings.map((job, index) => (
                 <InfoCard
                     key={index}
