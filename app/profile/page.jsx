@@ -224,7 +224,7 @@ const handleEditClick = () => {
                   </button>
                   <button 
                   className={`px-4 py-2 ${
-                    isEditable ? "bg-green-500" : "bg-gray-300"
+                    isEditable ? "bg-green-500" : "bg-red-500"
                   } text-white rounded-md hover:opacity-75 transition`}
                   onClick={handleEditClick} // Call edit function on click
                   >
