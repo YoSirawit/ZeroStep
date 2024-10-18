@@ -12,7 +12,7 @@ function Navbar() {
           <div className="container mx-auto">
               <div className='flex justify-start items-center'>
                   {/* โลโก้ */}
-                  <Link href="/" className="mr-10">Logo here</Link>
+                  <Link href="/homeSendResume" className="mr-10">Logo here</Link>  {/*ขอยืมปุ่มแปปนึงนะ เดี๋ยวมาลบออกให้/}
                   
                   {/* เมนูรายการ */}
                   <ul className='flex items-center'>
