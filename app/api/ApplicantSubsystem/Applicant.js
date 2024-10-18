@@ -34,6 +34,13 @@ class Applicant {
         return this.#fName;
     }
 
+    set LName(lname){
+        this.#lName = lname;
+    }
+    get LName(){
+        return this.#lName;
+    }
+
     set Dob(dob){
         this.#dob = dob;
     }
