@@ -23,7 +23,7 @@ async function getPets(){
 
 async function getAnnouncement(){
   try{
-    const announcement = await fetch('http://localhost:3000/api/get-announcement');
+    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement');
     const ann_data = await announcement.json();
     // console.log(ann_data.announcement);
     return ann_data.announcement;
@@ -61,7 +61,7 @@ async function Home() {
             {announcement && 
               announcement.map((ann) =>{
                 return(
-                <InfoCard key={ann.id}  />
+                <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.field} workType={ann.worktype} jobDetail='test'/>
               )})
             }
 
