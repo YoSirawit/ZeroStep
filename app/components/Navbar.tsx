@@ -1,3 +1,4 @@
+"use client"; 
 import React from 'react';
 import Link from 'next/link';
 
@@ -5,12 +6,13 @@ import Link from 'next/link';
 // npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/navigation';
 
 function Navbar() {
   return (
       <nav className='bg-black text-white py-5 px-10'>
           <div className="container mx-auto">
-              <div className='flex justify-start items-center'>
+              <div className='flex justify-between items-center'>
                   {/* โลโก้ */}
                   <Link href="/homeSendResume" className="mr-10">Logo here</Link>  {/*ขอยืมปุ่มแปปนึงนะ เดี๋ยวมาลบออกให้/}
                   
@@ -27,7 +29,11 @@ function Navbar() {
                               </a>
                           </Link>
                       </li>
-                      <li className='mx-3'><Link href="/login" legacyBehavior><a>Sign in</a></Link></li>
+                  </ul>
+
+                  {/* Sign in และ Company site */}
+                  <ul className='flex items-center ml-auto'>
+                      <li className='mx-3 px-5 py-1 pb-2 rounded-md border-2 border-blue-500'><Link href="/login" legacyBehavior><a>Sign in</a></Link></li>
                       <li className='mx-3'><Link href="/company" legacyBehavior><a>Company site</a></Link></li>
                   </ul>
               </div>
@@ -45,10 +51,10 @@ const styles = {
   },
   profileIcon: {
     color: '#fff',
-    maxWidth: '20px', // กำหนดขนาดสูงสุด
+    maxWidth: '20px',
     maxHeight: '20px',
     width: '100%',
-    height: 'auto', // อัตราส่วนคงที่
+    height: 'auto',
   },
   profileText: {
     marginLeft: '8px',
