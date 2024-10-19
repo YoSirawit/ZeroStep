@@ -14,7 +14,7 @@ function Navbar() {
           <div className="container mx-auto">
               <div className='flex justify-between items-center'>
                   {/* โลโก้ */}
-                  <Link href="/" className="mr-10">Logo here</Link>  {/*ขอยืมปุ่มแปปนึงนะ เดี๋ยวมาลบออกให้/}
+                  <Link href="/homeSendResume" className="mr-10">Logo here</Link>  {/*ขอยืมปุ่มแปปนึงนะ เดี๋ยวมาลบออกให้/}
                   
                   {/* เมนูรายการ */}
                   <ul className='flex items-center'>
