@@ -34,10 +34,9 @@ async function matchAnnouncement(){
   try{
     const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {cache: 'no-store'});
     const data = await announcement.json();
-    console.log('match page:', data);
     // const ann_data = await announcement.json();
     // // console.log(ann_data.announcement);
-    // return ann_data.announcement;
+    return data;
   } catch (error){
       console.error(error);
   }
@@ -50,6 +49,7 @@ function removeall(){
 async function Home() {
 
     const announcement = await matchAnnouncement();
+    console.log(announcement.announcement);
 
 
   // const announcement = await matchAnnouncement();
@@ -64,6 +64,14 @@ async function Home() {
     <div>
         <Navbar />
         <div className="flex-container">
+        </div>
+        <div>
+        {announcement.announcement && 
+              announcement.announcement.map((ann) =>{
+                return(
+                 <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.position} workType={ann.worktype} jobDetail={ann.score}/>
+              )})
+            }
         </div>
 
     </div>
