@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import Navbar from "../components/Navbar";
+import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -23,10 +24,25 @@ const Profile = () => {
   const [contribution, setContribution] = useState("- ประดิษฐ์อักษรภาษาอังอังๆ");
   const [interestedField, setInterestedField] = useState("งานที่นอนแล้วได้เงิน");
 
-// Toggle edit mode on button click
-const handleEditClick = () => {
-  setIsEditable((prev) => !prev); // Toggle the edit mode
-};
+  // Toggle edit mode on button click
+  const handleEditClick = () => {
+    setIsEditable((prev) => !prev); // Toggle the edit mode
+  };
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify({firstName: firstName,
+                                                      lastName: lastName,
+                                                      dateOfBirth: dateOfBirth,
+                                                      location: location,
+                                                      studyYear: studyYear,
+                                                      education: education,
+                                                      faculty: faculty,
+                                                      softSkill: softSkill,
+                                                      hardSkill: hardSkill,
+                                                      workExperience: workExperience,
+                                                      contribution: contribution,
+                                                      interestedField: interestedField}))
+  })
 
   return (
     <div>
@@ -219,9 +235,11 @@ const handleEditClick = () => {
               </div>
 
               <div className="mt-8 flex space-x-4 flex justify-end">
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition">
-                    Create resume
-                  </button>
+                  <Link href='/CreateResumePage' legacyBehavior>
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition">
+                      Create Resume
+                    </button>
+                  </Link>
                   <button 
                   className={`px-4 py-2 ${
                     isEditable ? "bg-green-500" : "bg-red-500"
