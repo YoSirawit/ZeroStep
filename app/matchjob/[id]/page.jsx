@@ -21,6 +21,8 @@ async function announcementDetail({ params }){
    const announce = await getAnnouncement(id);
    console.log(announce);
 
+
+
     return(
         <main>
             <div>
