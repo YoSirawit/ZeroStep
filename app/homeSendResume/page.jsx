@@ -17,7 +17,7 @@ export default function Upload() {
     setShowPopup(false);
     if (selectedFile) {
       console.log("Selected file:", selectedFile.name);
-      alert('File ready for upload: ' + selectedFile.name);
+      alert('File uploaded successfully.');
     } else {
       alert('No file selected.');
     }
