@@ -25,9 +25,9 @@ async function getPets(){
 async function getAnnouncement(){
   try{
     const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement');
-    const ann_data = await announcement.json();
-    // console.log(ann_data.announcement);
-    return ann_data.announcement;
+    // const ann_data = await announcement.json();
+    // // console.log(ann_data.announcement);
+    // return ann_data.announcement;
   } catch (error){
       console.error(error);
   }
@@ -43,7 +43,7 @@ async function Home() {
   // console.log({pets});
 
   const announcement = await getAnnouncement();
-  console.log({announcement});
+  // console.log({announcement});
 
   
   const jobPositionsCount = 1; //ดึงจากDatabaseมาอะครับคุณหลังบ้าน
@@ -63,16 +63,16 @@ async function Home() {
             </div>
             <JobField />
         </div>
-        <div className='container mx-auto'>
+        {/* <div className='container mx-auto'>
             <h3>Home</h3>
             <h1><Link href="/api/get-pet-info">Test</Link></h1>
             <Link href="/add-pet">Add pet</Link>
 
-        </div>
+        </div> */}
             {announcement && 
               announcement.map((ann) =>{
                 return(
-                <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.field} workType={ann.worktype} jobDetail='test'/>
+                 <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.position} workType={ann.worktype} jobDetail='test'/>
               )})
             }
 

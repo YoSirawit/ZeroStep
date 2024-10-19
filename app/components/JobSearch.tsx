@@ -35,8 +35,43 @@ const JobSearch: React.FC = () => {
         "Work Hour": "#4b00ff",
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log(selectedTags);
+
+
+        try{        let jobField;
+        let worktype;
+        let location;
+
+
+        for(let i =0; i<selectedTags.length; i++){
+
+            if(selectedTags[i].source == "Faculty"){
+                jobField = selectedTags[i].label;
+                continue;
+            }else if(selectedTags[i].source == "Work Type"){
+                worktype = selectedTags[i].label;
+                continue;
+            }else if(selectedTags[i].source == "Province"){
+                location = selectedTags[i].label;
+                continue;
+            }
+        }
+            const res = await fetch(`http://localhost:3000/api/get-announcement`, {
+                method: 'POST',
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({jobField, worktype, location})
+                
+            });
+
+            const data = res.json();
+            console.log(data);
+        }catch(error){
+            console.log(error);
+        }
+        
     };
     
 
@@ -140,6 +175,7 @@ const JobSearch: React.FC = () => {
                 </Box>
             </Box>
         </Box>
+        
         
     );
 };

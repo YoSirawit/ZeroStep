@@ -1,3 +1,7 @@
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
+
+
 class Applicant {
     #id;
     #fName;
@@ -7,7 +11,7 @@ class Applicant {
     #studyYear;
     #university;
     #faculty;
-    #hardSkill;
+    #hardSkill = [];
     #softSkill;
     #exp;
     #workStatus;
@@ -76,8 +80,8 @@ class Applicant {
         return this.#faculty;
     }
 
-    set HardSkill(skill){
-        this.#hardSkill = skill;
+    addHardSkill(skill){
+        this.#hardSkill.push(skill);
     }
     get HardSkill(){
         return this.#hardSkill;
@@ -125,8 +129,28 @@ class Applicant {
         return this.#jobTitle;
     }
 
-    getUserInfo() {
+    constructor(ID){
+        this.#id = ID;
+        this.#fName = 'Sirawit';
+        this.#lName = 'Chantemduang';
+        this.#dob = '2004-08-19';
+        this.#location_= 'Bangkok';
+        this.#studyYear = '2022-07-01';
+        this.#interestedField = 'IT';
+        this.#faculty = 'IT';
+    }
+
+    async getUserInfo() {
         // return user info by use database command
+        try{
+            const user_info = await sql`select * from Applicant where ID = ${this.#id}`;
+            
+            console.log('user-info sql: ',user_info);
+            return user_info
+        }catch(error){
+            console.log(error);
+        }
+
     }
 
     updateApplicant(input) {
@@ -143,3 +167,9 @@ class Applicant {
     getApplicationinfo() {}
     getApplicantData(applyPositionID) {}
 }
+
+
+
+
+
+export default Applicant
