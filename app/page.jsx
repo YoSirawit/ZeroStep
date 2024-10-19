@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Navbar from "./components/Navbar";
 import Select from "react-select";
+import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
@@ -40,144 +41,245 @@ async function matchAnnouncement(){
   }
 }
 
-  const jobTitleOptions = [
-    { value: "FullStack Developer", label: "FullStack Developer" },
-    { value: "Database Designer", label: "Database Designer" },
-    { value: "AI Developer", label: "AI Developer" },
-  ];
-  
-  const facultyOptions = [
-    { value: "IT", label: "IT" },
-    { value: "DSBA", label: "DSBA" },
-    { value: "AIT", label: "AIT" },
-  ];
-  
-  const workTypeOptions = [
-    { value: "Work From Home", label: "Work From Home" },
-    { value: "In-office", label: "In-office" },
-    { value: "Hybrid", label: "Hybrid" },
-  ];
-  
-  const provinceOptions = [
-    { value: "Bangkok", label: "Bangkok" },
-    { value: "Roi-et", label: "Roi-et" },
-    { value: "Chiang-Mai", label: "Chiang-Mai" },
-    { value: "Nonthaburi", label: "Nonthaburi" },
-  ];
-  
-  const workHourOptions = [
-    { value: "9:00-12:00", label: "9:00-12:00" },
-    { value: "12:00-16:00", label: "12:00-16:00" },
-    { value: "16:00-21:00", label: "16:00-21:00" },
-  ];
-  
-  export default function Home() {
-    return (
-      <div>
-        <Navbar />
-        <JobSearch />
-      </div>
-    );
-  }
-  
-  function JobSearch() {
-    const [filters, setFilters] = useState({
-      jobTitle: [],
-      faculty: [],
-      workType: [],
-      province: [],
-      workHours: [],
+let job_list;
+
+// Data for filter
+// for database link
+//-------------------------------------------------------
+const positionOptions = [
+  { value: 'FullStack Developer', label: 'FullStack Developer' },
+  { value: 'Database Designer', label: 'Database Designer' },
+  { value: 'AI Developer', label: 'AI Developer' },
+];
+
+const fieldOptions = [
+  { value: 'IT', label: 'IT' },
+  { value: 'DSBA', label: 'DSBA' },
+  { value: 'AIT', label: 'AIT' },
+];
+
+const companyNameOptions = [
+  { value: 'ITforgerenger', label: 'ITforgerenger' },
+  { value: 'AItakeover', label: 'AItakeover' },
+  { value: 'DataMaster', label: 'DataMaster' },
+];
+
+const workTypeOptions = [
+  { value: 'Work From Home', label: 'Work From Home' },
+  { value: 'In-office', label: 'In-office' },
+  { value: 'Hybrid', label: 'Hybrid' },
+];
+
+const locationOptions = [
+  { value: 'Bangkok', label: 'Bangkok' },
+  { value: 'Roi-et', label: 'Roi-et' },
+  { value: 'Chiang Mai', label: 'Chiang Mai' },
+  { value: 'Nonthaburi', label: 'Nonthaburi' },
+];
+
+// Main component
+export default function Home() {
+  return (
+    <div>
+      <Navbar />
+      <JobSearch />
+    </div>
+  );
+}
+
+// Data for announcement jobs
+// for database link
+//-------------------------------------
+const jobs = [
+  { field: 'IT', position: 'FullStack Developer', compensation: 'THB 300/day', location: 'Bangkok', worktype: 'Full-time', companyname: 'ITforgerenger' },
+  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Bangkok', worktype: 'Full-time', companyname: 'AItakeover' },
+  // Add more jobs if needed
+];
+
+// Job Search component
+function JobSearch() {
+  // State for filters and search text
+  const [filters, setFilters] = useState({
+    position: [],
+    companyName: [],
+    field: [],
+    workType: [],
+    location: [],
+  });
+  const [searchText, setSearchText] = useState('');
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [filteredJobs, setFilteredJobs] = useState([]); // New state to store filtered jobs
+  const [isSearchClicked, setIsSearchClicked] = useState(false); // Track if search button is clicked
+
+  // Handle input changes for Select components
+  const handleInputChange = (selectedOptions, actionMeta) => {
+    const { name } = actionMeta;
+    setFilters({
+      ...filters,
+      [name]: selectedOptions || [],
     });
-  
-    const handleInputChange = (selectedOptions, actionMeta) => {
-      const { name } = actionMeta;
-      setFilters({
-        ...filters,
-        [name]: selectedOptions || [],
-      });
-    };
-  
-    const handleFindJob = () => {
-      console.log("ค้นหางานด้วยฟิลเตอร์:", filters);
-    };
-  
-    const handleMatchJob = () => {
-      console.log("จับคู่งานด้วยฟิลเตอร์:", filters);
-    };
-  
-    return (
-      <div className="container mx-auto py-5 px-10">
-        <div className="top-row flex justify-between items-start">
-          <div className="filters bg-gray-100 p-5 rounded-lg shadow w-1/2">
-            <h1 className="text-xl font-bold mb-2">ฟิลเตอร์การค้นหา :</h1>
-            <div className="filter-options space-y-3">
+  };
+
+  // Filter jobs based on the selected filters
+  const handleFindJob = () => {
+    const result = jobs.filter(job => {
+      const matchPosition = filters.position.length === 0 || filters.position.some(p => p.value === job.position);
+      const matchCompany = filters.companyName.length === 0 || filters.companyName.some(c => c.value === job.companyname);
+      const matchField = filters.field.length === 0 || filters.field.some(f => f.value === job.field);
+      const matchWorkType = filters.workType.length === 0 || filters.workType.some(w => w.value === job.worktype);
+      const matchLocation = filters.location.length === 0 || filters.location.some(l => l.value === job.location);
+
+      return matchPosition && matchCompany && matchField && matchWorkType && matchLocation;
+    });
+
+    setFilteredJobs(result); // Store filtered jobs in state
+    setIsSearchClicked(true); // Indicate that search has been performed
+  };
+
+  const handleMatchJob = async () => {
+    console.log('จับคู่งานด้วยฟิลเตอร์:', filters);
+    try{
+      const response = await matchAnnouncement();
+      console.log(response);
+    }catch(error){
+      console.log(error);
+    }
+  };
+
+  return (
+    <div className="container mx-auto py-5 px-10">
+      <div className="top-row flex flex-col">
+        <div className="filters bg-gray-100 p-5 rounded-lg shadow mb-5">
+          <h1 className="text-xl font-bold mb-2 flex justify-between items-center">
+            Find your job❤️
+            <button 
+              onClick={handleMatchJob} 
+              className="text-base bg-red-500 text-white py-2 px-4 rounded w-32"
+            >
+              จับคู่งาน! ✨
+            </button>
+          </h1>
+          <div className="action-buttons flex gap-3 mb-3 justify-between items-center">
+            <input
+              type="text"
+              className="border border-gray-300 rounded py-2 px-4 flex-grow"
+              placeholder="Search for jobs..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <button 
+              onClick={handleFindJob} 
+              className="text-base font-bold bg-orange-500 text-white py-2 px-4 rounded w-32"
+            >
+              ค้นหางาน!
+            </button>
+          </div>
+          {/* Job filter */}
+          <div className="filter-options my-4 flex flex-wrap gap-4">
+            <div className="flex-grow md:w-1/3">
               <Select
-                name="jobTitle"
+                name="position"
                 isMulti
-                options={jobTitleOptions}
-                value={filters.jobTitle}
+                options={positionOptions}
+                value={filters.position}
                 onChange={handleInputChange}
-                placeholder="ตำแหน่งงาน"
+                placeholder="position"
                 className="w-full"
               />
+            </div>
+            <div className="flex-grow md:w-1/3">
               <Select
-                name="faculty"
+                name="field"
                 isMulti
-                options={facultyOptions}
-                value={filters.faculty}
+                options={fieldOptions}
+                value={filters.field}
                 onChange={handleInputChange}
-                placeholder="คณะ"
+                placeholder="field"
                 className="w-full"
               />
+            </div>
+            <div className="flex-grow md:w-1/3">
+              <Select
+                name="companyName"
+                isMulti
+                options={companyNameOptions}
+                value={filters.companyName}
+                onChange={handleInputChange}
+                placeholder="companyName"
+                className="w-full"
+              />
+            </div>
+            <div className="flex-grow md:w-1/3">
               <Select
                 name="workType"
                 isMulti
                 options={workTypeOptions}
                 value={filters.workType}
                 onChange={handleInputChange}
-                placeholder="ประเภทงาน"
-                className="w-full"
-              />
-              <Select
-                name="province"
-                isMulti
-                options={provinceOptions}
-                value={filters.province}
-                onChange={handleInputChange}
-                placeholder="จังหวัด"
-                className="w-full"
-              />
-              <Select
-                name="workHours"
-                isMulti
-                options={workHourOptions}
-                value={filters.workHours}
-                onChange={handleInputChange}
-                placeholder="ชั่วโมงการทำงาน"
+                placeholder="workType"
                 className="w-full"
               />
             </div>
-            <div className="action-buttons flex gap-3 mt-3 justify-end">
-              <button onClick={handleFindJob} className="bg-orange-500 text-white py-2 px-4 rounded">
-                ค้นหางาน!
-              </button>
-              <button onClick={handleMatchJob} className="bg-red-500 text-white py-2 px-4 rounded">
-                จับคู่งาน! ✨
-              </button>
+            <div className="flex-grow md:w-1/3">
+              <Select
+                name="location"
+                isMulti
+                options={locationOptions}
+                value={filters.location}
+                onChange={handleInputChange}
+                placeholder="location"
+                className="w-full"
+              />
+            </div>
+          </div>
+          {/* Job filter end */}
+        </div>
+
+        {/* Job results - Show only when the button is clicked */}
+        {isSearchClicked && filteredJobs.length > 0 ? (
+          <div className="flex gap-5">
+            {/* Job results ย่อฝั่งซ้าย */}
+            <div className="w-1/3 border-r pr-5">
+              {filteredJobs.map((job, i) => (
+                <div
+                  key={i}
+                  onClick={() => setSelectedJob(job)}
+                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                >
+                  <h3 className="text-lg font-semibold">{job.companyname}</h3>
+                  <p className="text-gray-500">{job.position}</p>
+                  <p className="text-gray-500">{job.location}</p>
+                  <p className="text-gray-500">{job.compensation}</p>
+                </div>
+              ))}
             </div>
 
+            {/* Job results เต็มฝั่งขวา */}
+            <div className="w-2/3">
+              {selectedJob ? (
+                <div className="border p-5">
+                  <h2 className="text-2xl font-bold">{selectedJob.companyname}</h2>
+                  <p className="text-gray-600">{selectedJob.position}</p>
+                  <p>{selectedJob.location} | {selectedJob.worktype}</p>
+                  <p>{selectedJob.compensation}</p>
+                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                    <div className="mt-5">
+                    <Link href="/homeSendResume">
+                      <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-black-600">Please select a job to see details.</p>
+              )}
+            </div>
           </div>
-          <div className="search-bar w-1/2 flex justify-start ml-5 bg-gray-100 p-5 rounded-lg shadow">
-            <input type="text" placeholder="ค้นหาบริษัทหรือตำแหน่งงาน" className="w-full p-2 border rounded"/>
-          </div>
-        </div>
-        <div className="job-results w-1/2 bg-gray-100 p-5 rounded-lg shadow mt-5 text-center">
-          <h3 className="text-xl font-bold">ตำแหน่งงานที่มี</h3>
-          <div className="flex justify-start space-x-4 mt-3">
-            <p>ตำแหน่ง!</p>
-            <p>1 บริษัท!</p>
-          </div>
-        </div>
+        ) : (
+          isSearchClicked && (
+            <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
+          )
+        )}
       </div>
-    );
-  }
+    </div>
+  );
+}
