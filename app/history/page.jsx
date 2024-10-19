@@ -1,14 +1,17 @@
 "use client";
-
 import React from 'react'
+import Navbar from "../components/Navbar";
 
 const history = () => {
   return (
     <div>
-          <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div>
+        <Navbar/>
+      </div>
+          <div className="flex-1 p-5 min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="max-w-7xl w-full">
           {/* Title */}
-          <h1 className="text-left text-3xl font-bold mb-8">
+          <h1 className="text-left text-3xl font-bold my-8">
             ประวัติการสมัคร <br /> <span className="text-sm font-normal">Complete Company List</span>
           </h1>
 
