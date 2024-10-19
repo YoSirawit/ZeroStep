@@ -1,14 +1,9 @@
-// "use client"
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Navbar from "./components/Navbar";
-import JobSearch from "./components/JobSearch";
-import JobCount from "./components/JobCount";
-import Link from 'next/link';
+import Select from "react-select";
 import { sql } from '@vercel/postgres';
-import Petinfo from './components/petinfo';
-import InfoCard from './components/InfoCard';
 import { NextResponse } from 'next/server';
-import JobField from './components/JobField';
 
 async function getPets(){
   try{
@@ -45,57 +40,144 @@ async function matchAnnouncement(){
   }
 }
 
-async function Home() {
-
-  const pets = await getPets();
-  // console.log({pets});
-
-  const announcement = await getAnnouncement();
-  const matchannouncement = await matchAnnouncement();
-  console.log(matchannouncement);
-  // console.log({announcement});
-
+  const jobTitleOptions = [
+    { value: "FullStack Developer", label: "FullStack Developer" },
+    { value: "Database Designer", label: "Database Designer" },
+    { value: "AI Developer", label: "AI Developer" },
+  ];
   
-  const jobPositionsCount = 1; //ดึงจากDatabaseมาอะครับคุณหลังบ้าน
-  const companiesHiringCount = 1; //ดึงจากDatabaseมาอะครับคุณหลังบ้าน
-
-
-  return (
-    <div>
+  const facultyOptions = [
+    { value: "IT", label: "IT" },
+    { value: "DSBA", label: "DSBA" },
+    { value: "AIT", label: "AIT" },
+  ];
+  
+  const workTypeOptions = [
+    { value: "Work From Home", label: "Work From Home" },
+    { value: "In-office", label: "In-office" },
+    { value: "Hybrid", label: "Hybrid" },
+  ];
+  
+  const provinceOptions = [
+    { value: "Bangkok", label: "Bangkok" },
+    { value: "Roi-et", label: "Roi-et" },
+    { value: "Chiang-Mai", label: "Chiang-Mai" },
+    { value: "Nonthaburi", label: "Nonthaburi" },
+  ];
+  
+  const workHourOptions = [
+    { value: "9:00-12:00", label: "9:00-12:00" },
+    { value: "12:00-16:00", label: "12:00-16:00" },
+    { value: "16:00-21:00", label: "16:00-21:00" },
+  ];
+  
+  export default function Home() {
+    return (
+      <div>
         <Navbar />
-        <div className="flex-container">
-            <div className="job-search-container"> 
-                <JobSearch />
-                <JobCount 
-                  jobPositionsCount={jobPositionsCount} 
-                  companiesHiringCount={companiesHiringCount} 
-                />
+        <JobSearch />
+      </div>
+    );
+  }
+  
+  function JobSearch() {
+    const [filters, setFilters] = useState({
+      jobTitle: [],
+      faculty: [],
+      workType: [],
+      province: [],
+      workHours: [],
+    });
+  
+    const handleInputChange = (selectedOptions, actionMeta) => {
+      const { name } = actionMeta;
+      setFilters({
+        ...filters,
+        [name]: selectedOptions || [],
+      });
+    };
+  
+    const handleFindJob = () => {
+      console.log("ค้นหางานด้วยฟิลเตอร์:", filters);
+    };
+  
+    const handleMatchJob = () => {
+      console.log("จับคู่งานด้วยฟิลเตอร์:", filters);
+    };
+  
+    return (
+      <div className="container mx-auto py-5 px-10">
+        <div className="top-row flex justify-between items-start">
+          <div className="filters bg-gray-100 p-5 rounded-lg shadow w-1/2">
+            <h1 className="text-xl font-bold mb-2">ฟิลเตอร์การค้นหา :</h1>
+            <div className="filter-options space-y-3">
+              <Select
+                name="jobTitle"
+                isMulti
+                options={jobTitleOptions}
+                value={filters.jobTitle}
+                onChange={handleInputChange}
+                placeholder="ตำแหน่งงาน"
+                className="w-full"
+              />
+              <Select
+                name="faculty"
+                isMulti
+                options={facultyOptions}
+                value={filters.faculty}
+                onChange={handleInputChange}
+                placeholder="คณะ"
+                className="w-full"
+              />
+              <Select
+                name="workType"
+                isMulti
+                options={workTypeOptions}
+                value={filters.workType}
+                onChange={handleInputChange}
+                placeholder="ประเภทงาน"
+                className="w-full"
+              />
+              <Select
+                name="province"
+                isMulti
+                options={provinceOptions}
+                value={filters.province}
+                onChange={handleInputChange}
+                placeholder="จังหวัด"
+                className="w-full"
+              />
+              <Select
+                name="workHours"
+                isMulti
+                options={workHourOptions}
+                value={filters.workHours}
+                onChange={handleInputChange}
+                placeholder="ชั่วโมงการทำงาน"
+                className="w-full"
+              />
             </div>
-            <JobField />
+            <div className="action-buttons flex gap-3 mt-3 justify-end">
+              <button onClick={handleFindJob} className="bg-orange-500 text-white py-2 px-4 rounded">
+                ค้นหางาน!
+              </button>
+              <button onClick={handleMatchJob} className="bg-red-500 text-white py-2 px-4 rounded">
+                จับคู่งาน! ✨
+              </button>
+            </div>
+
+          </div>
+          <div className="search-bar w-1/2 flex justify-start ml-5 bg-gray-100 p-5 rounded-lg shadow">
+            <input type="text" placeholder="ค้นหาบริษัทหรือตำแหน่งงาน" className="w-full p-2 border rounded"/>
+          </div>
         </div>
-        {/* <div className='container mx-auto'>
-            <h3>Home</h3>
-            <h1><Link href="/api/get-pet-info">Test</Link></h1>
-            <Link href="/add-pet">Add pet</Link>
-
-        </div> */}
-            {matchannouncement && 
-              matchannouncement.announcement.map((ann) =>{
-                return(
-                 <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.position} workType={ann.worktype} jobDetail={ann.score}/>
-              )})
-            }
-
-            {/* {pets &&
-              pets.map((pet) => {
-                return(
-                  <Petinfo key={pet.name} name={pet.name} owner={pet.owner}/>
-                )})
-
-            } */}
-    </div>
-  )
-}
-
-export default Home
-
+        <div className="job-results w-1/2 bg-gray-100 p-5 rounded-lg shadow mt-5 text-center">
+          <h3 className="text-xl font-bold">ตำแหน่งงานที่มี</h3>
+          <div className="flex justify-start space-x-4 mt-3">
+            <p>ตำแหน่ง!</p>
+            <p>1 บริษัท!</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
