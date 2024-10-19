@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Navbar from "./components/Navbar";
 import Select from "react-select";
+import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
@@ -165,6 +166,7 @@ function JobSearch() {
               ค้นหางาน!
             </button>
           </div>
+          {/* Job filter */}
           <div className="filter-options my-4 flex flex-wrap gap-4">
             <div className="flex-grow md:w-1/3">
               <Select
@@ -222,11 +224,13 @@ function JobSearch() {
               />
             </div>
           </div>
+          {/* Job filter end */}
         </div>
 
         {/* Job results - Show only when the button is clicked */}
         {isSearchClicked && filteredJobs.length > 0 ? (
           <div className="flex gap-5">
+            {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
               {filteredJobs.map((job, i) => (
                 <div
@@ -242,6 +246,7 @@ function JobSearch() {
               ))}
             </div>
 
+            {/* Job results เต็มฝั่งขวา */}
             <div className="w-2/3">
               {selectedJob ? (
                 <div className="border p-5">
@@ -249,13 +254,15 @@ function JobSearch() {
                   <p className="text-gray-600">{selectedJob.position}</p>
                   <p>{selectedJob.location} | {selectedJob.worktype}</p>
                   <p>{selectedJob.compensation}</p>
-                  <div className="mt-5">
-                    <button className="bg-pink-500 text-white py-2 px-4 rounded-lg mr-3">Quick apply</button>
-                    <button className="bg-blue-500 text-white py-2 px-4 rounded-lg">Save</button>
+                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                    <div className="mt-5">
+                    <Link href="/homeSendResume">
+                      <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
+                    </Link>
                   </div>
                 </div>
               ) : (
-                <p className="text-gray-600">Please select a job to see details.</p>
+                <p className="text-black-600">Please select a job to see details.</p>
               )}
             </div>
           </div>
