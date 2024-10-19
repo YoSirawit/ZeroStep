@@ -42,6 +42,7 @@ async function matchAnnouncement(){
 }
 
 let job_list;
+let data = [];
 
 // Data for filter
 // for database link
@@ -110,6 +111,8 @@ function JobSearch() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [filteredJobs, setFilteredJobs] = useState([]); // New state to store filtered jobs
   const [isSearchClicked, setIsSearchClicked] = useState(false); // Track if search button is clicked
+  const [isMatchClicked, setIsMatchClicked] = useState(false);
+  const [matchedJobs, setMatchJobs] = useState([]);
 
   // Handle input changes for Select components
   const handleInputChange = (selectedOptions, actionMeta) => {
@@ -132,6 +135,7 @@ function JobSearch() {
       return matchPosition && matchCompany && matchField && matchWorkType && matchLocation;
     });
 
+    setIsMatchClicked(false);
     setFilteredJobs(result); // Store filtered jobs in state
     setIsSearchClicked(true); // Indicate that search has been performed
   };
@@ -140,7 +144,13 @@ function JobSearch() {
     console.log('จับคู่งานด้วยฟิลเตอร์:', filters);
     try{
       const response = await matchAnnouncement();
-      console.log(response);
+      console.log(response.announcement);
+      data = response.announcement;
+      console.log(data);
+
+      setIsSearchClicked(false);
+      setMatchJobs(data);
+      setIsMatchClicked(true);
     }catch(error){
       console.log(error);
     }
@@ -235,12 +245,12 @@ function JobSearch() {
           {/* Job filter end */}
         </div>
 
-        {/* Job results - Show only when the button is clicked */}
-        {isSearchClicked && filteredJobs.length > 0 ? (
+
+        {isMatchClicked && data.length > 0 ? (
           <div className="flex gap-5">
             {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
-              {filteredJobs.map((job, i) => (
+              {data.map((job, i) => (
                 <div
                   key={i}
                   onClick={() => setSelectedJob(job)}
@@ -250,9 +260,11 @@ function JobSearch() {
                   <p className="text-gray-500">{job.position}</p>
                   <p className="text-gray-500">{job.location}</p>
                   <p className="text-gray-500">{job.compensation}</p>
+                  <p className="text-gray-500">Compatibility : {job.score}</p>
                 </div>
               ))}
             </div>
+            
 
             {/* Job results เต็มฝั่งขวา */}
             <div className="w-2/3">
@@ -279,6 +291,75 @@ function JobSearch() {
             <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
           )
         )}
+
+
+
+
+
+
+        {/* Job results - Show only when the button is clicked */}
+        {isSearchClicked && filteredJobs.length > 0 ? (
+          <div className="flex gap-5">
+            {/* Job results ย่อฝั่งซ้าย */}
+            <div className="w-1/3 border-r pr-5">
+              {filteredJobs.map((job, i) => (
+                <div
+                  key={i}
+                  onClick={() => setSelectedJob(job)}
+                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                >
+                  <h3 className="text-lg font-semibold">{job.companyname}</h3>
+                  <p className="text-gray-500">{job.position}</p>
+                  <p className="text-gray-500">{job.location}</p>
+                  <p className="text-gray-500">{job.compensation}</p>
+                </div>
+              ))}
+            </div>
+            
+
+            {/* Job results เต็มฝั่งขวา */}
+            <div className="w-2/3">
+              {selectedJob ? (
+                <div className="border p-5">
+                  <h2 className="text-2xl font-bold">{selectedJob.companyname}</h2>
+                  <p className="text-gray-600">{selectedJob.position}</p>
+                  <p>{selectedJob.location} | {selectedJob.worktype}</p>
+                  <p>{selectedJob.compensation}</p>
+                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                    <div className="mt-5">
+                    <Link href="/homeSendResume">
+                      <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-black-600">Please select a job to see details.</p>
+              )}
+            </div>
+          </div>
+        ) : (
+          isSearchClicked && (
+            <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
+          )
+        )}
+        {/* {isMatchClicked = true? (
+              <div className='flex gap-5'>
+                {data.map((job) => (
+                  <div
+                    key={job.id}
+                    onClick={() => setSelectedJob(job)}
+                    className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                  >
+                    <h3 className="text-lg font-semibold">{job.companyname}</h3>
+                    <p className="text-gray-500">{job.position}</p>
+                    <p className="text-gray-500">{job.location}</p>
+                    <p className="text-gray-500">{job.compensation}</p>
+                  </div>
+                ))}
+              </div>
+            )} */}
+
+
       </div>
     </div>
   );
