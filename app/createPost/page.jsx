@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import NavbarCom from "../components/NavbarCom";
 import Link from 'next/link';
-import ConfirmationPopup from "../components/ConfirmationPopup"; // ใช้ชื่อที่ถูกต้อง
+import ConfirmationPopup from "../components/ConfirmationPopup";
+import Select from 'react-select';
 
 function CreatePost() {
   const [showPopup, setShowPopup] = useState(false); // สถานะเพื่อควบคุมการแสดง ConfirmationPopup
+  const [selectedFaculties, setSelectedFaculties] = useState([]); // State สำหรับจัดการ faculty ที่เลือก
 
   const handleSave = () => {
     setShowPopup(true); // แสดง ConfirmationPopup เมื่อกดบันทึก
@@ -15,6 +17,21 @@ function CreatePost() {
     // เปลี่ยนเส้นทางไปยังหน้า Company
     window.location.href = '/company'; // เปลี่ยนเส้นทางไปยังหน้า Company
   };
+  // ตัวเลือกสำหรับ Faculty
+  const facultyOptions = [
+    { value: 'Engineering', label: 'Engineering' },
+    { value: 'Architecture, Art, and Design', label: 'Architecture, Art, and Design' },
+    { value: 'Science', label: 'Science' },
+    { value: 'Industrial Education and Technology', label: 'Industrial Education and Technology' },
+    { value: 'Agricultural Technology', label: 'Agricultural Technology' },
+    { value: 'Information Technology', label: 'Information Technology' },
+    { value: 'Food Industry', label: 'Food Industry' },
+    { value: 'Business', label: 'Business' },
+    { value: 'Liberal Arts', label: 'Liberal Arts' },
+    { value: 'Medicine', label: 'Medicine' },
+    { value: 'Dentistry', label: 'Dentistry' },
+    { value: 'Nursing', label: 'Nursing' },
+  ];
 
   return (
     <div>
@@ -43,10 +60,14 @@ function CreatePost() {
           {/* Faculty และ Field */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="font-medium">Faculty</label>
-              <input
-                type="text"
-                className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+            <label className="font-medium">Faculty</label>
+              {/* ใช้ react-select สำหรับ dropdown multi-select */}
+              <Select
+                isMulti
+                options={facultyOptions}
+                value={selectedFaculties}
+                onChange={setSelectedFaculties}
+                className="w-full mt-1"
               />
             </div>
             <div>
