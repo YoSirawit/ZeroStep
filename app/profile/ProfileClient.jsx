@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-// import Image from 'next/image';
+import Image from 'next/image';
 import Navbar from "../components/Navbar";
-
-import insertSkill from "./insertSkill"
-import updateProfilePage from "./updateProfilePage";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -78,7 +75,7 @@ const [hardSkill, setHardSkill] = useState(skill);
 const [newSkill, setNewSkill] = useState("");
 
 // Toggle edit mode on button click
-const handleEditClick = () => {
+const handleEditClick = async () => {
     setIsEditable((prev) => !prev); // Toggle the edit mode
     if (isAddSkill) {
         // if (newSkill != "") {
@@ -87,7 +84,17 @@ const handleEditClick = () => {
         setIsAddSkill(false);
     }
     if (isEditable) {
-        // updateProfilePage('firstname', firstName);
+        // try {
+        //     await fetch('http://localhost:3000/api/InsertProfile', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({ firstName }), // Wrap firstName in an object
+        //     });
+        // } catch (error) {
+        //     console.log(error);
+        // }
     }
 };
 
@@ -112,8 +119,8 @@ return (
                 {/* <Image
                     src="/DogLaughMeme.jpg"
                     alt="Profile"
-                    width={175}
-                    height={175}
+                    width={225}
+                    height={225}
                     className="rounded-full mb-4"
                 /> */}
                 <FontAwesomeIcon icon={faUser} className="w-32 h-32 rounded-full mt-8 mb-8" />
