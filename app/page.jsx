@@ -40,6 +40,8 @@ async function matchAnnouncement(){
   }
 }
 
+let job_list;
+
 // Data for filter
 // for database link
 //-------------------------------------------------------
@@ -133,8 +135,14 @@ function JobSearch() {
     setIsSearchClicked(true); // Indicate that search has been performed
   };
 
-  const handleMatchJob = () => {
+  const handleMatchJob = async () => {
     console.log('จับคู่งานด้วยฟิลเตอร์:', filters);
+    try{
+      const response = await matchAnnouncement();
+      console.log(response);
+    }catch(error){
+      console.log(error);
+    }
   };
 
   return (
