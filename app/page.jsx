@@ -33,8 +33,16 @@ async function getAnnouncement(){
   }
 }
 
-function removeall(){
-  sql`DELETE FROM Pets`
+async function matchAnnouncement(){
+  try{
+    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {cache: 'no-store'});
+    const data = await announcement.json();
+    // const ann_data = await announcement.json();
+    // // console.log(ann_data.announcement);
+    return data;
+  } catch (error){
+      console.error(error);
+  }
 }
 
 async function Home() {
@@ -43,6 +51,8 @@ async function Home() {
   // console.log({pets});
 
   const announcement = await getAnnouncement();
+  const matchannouncement = await matchAnnouncement();
+  console.log(matchannouncement);
   // console.log({announcement});
 
   
@@ -69,10 +79,10 @@ async function Home() {
             <Link href="/add-pet">Add pet</Link>
 
         </div> */}
-            {announcement && 
-              announcement.map((ann) =>{
+            {matchannouncement && 
+              matchannouncement.announcement.map((ann) =>{
                 return(
-                 <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.position} workType={ann.worktype} jobDetail='test'/>
+                 <InfoCard key={ann.id} companyName={ann.companyname} jobTitle={ann.position} workType={ann.worktype} jobDetail={ann.score}/>
               )})
             }
 

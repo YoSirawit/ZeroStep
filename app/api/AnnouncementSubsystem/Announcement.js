@@ -6,6 +6,7 @@ import { NextResponse } from 'next/server';
 
 class Announcement{
     id;
+    companyname;
     field;
     position;
     compensation;
@@ -23,6 +24,14 @@ class Announcement{
         this.hardSkillReq = [];
         this.worktype = worktype;
         this.score = 0;
+    }
+
+    set Companyname(name){
+        this.companyname = name;
+    }
+
+    get Companyname(){
+        return this.companyname;
     }
 
     set Id(annID){
@@ -110,6 +119,7 @@ class Announcement{
                     let skill_length = 0;
                     let announce = new Announcement(announcement.rows[i].field, announcement.rows[i].position, announcement.rows[i].compensation, announcement.rows[i].location, announcement.rows[i].worktype);
                     announce.Id = announcement.rows[i].id;
+                    announce.Companyname = announcement.rows[i].companyname;
                     const hardskill = await sql`select skill from announcement_skill_req where announcement_id = ${announcement.rows[i].id}`;
                     for(let j=0; j<hardskill.rowCount; j++){
                         announce.addHardSkillReq(hardskill.rows[j].skill);
