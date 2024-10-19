@@ -1,14 +1,17 @@
 "use client";
-
 import React from 'react'
+import Navbar from "../components/Navbar";
 
 const history = () => {
   return (
     <div>
-          <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div>
+        <Navbar/>
+      </div>
+          <div className="flex-1 p-5 min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="max-w-7xl w-full">
           {/* Title */}
-          <h1 className="text-left text-3xl font-bold mb-8">
+          <h1 className="text-left text-3xl font-bold my-8">
             ประวัติการสมัคร <br /> <span className="text-sm font-normal">Complete Company List</span>
           </h1>
 
@@ -20,13 +23,13 @@ const history = () => {
                 <h2 className="font-semibold mb-2 text-lg">BIG Big Ducky Inc.</h2>
                 <form>
                   <label className="block mb-2">วันที่สมัคร</label>
-                  <input className="w-full mb-3 p-2 border rounded" type="text" />
+                  <input className="w-full mb-3 p-2 border rounded" type="text" disabled/>
                   
                   <label className="block mb-2">ตำแหน่ง</label>
-                  <input className="w-full mb-3 p-2 border rounded" type="text" />
+                  <input className="w-full mb-3 p-2 border rounded" type="text" disabled/>
                   
                   <label className="block mb-2">รายละเอียดงาน</label>
-                  <textarea className="w-full p-2 border rounded"></textarea>
+                  <textarea className="w-full p-2 border rounded" disabled></textarea>
                 </form>
                 <button className="bg-black text-white py-2 px-4 mt-4 w-full rounded">Review</button>
                 <p className="text-gray-500 text-xs mt-2">* About The Internship Environment</p>
@@ -37,13 +40,13 @@ const history = () => {
                 <h2 className="font-semibold mb-2 text-lg">Company B.</h2>
                 <form>
                   <label className="block mb-2">วันที่สมัคร</label>
-                  <input className="w-full mb-4 p-2 border rounded" type="text" />
+                  <input className="w-full mb-4 p-2 border rounded" type="text" disabled/>
                   
                   <label className="block mb-2">ตำแหน่ง</label>
-                  <input className="w-full mb-4 p-2 border rounded" type="text" />
+                  <input className="w-full mb-4 p-2 border rounded" type="text" disabled/>
                   
                   <label className="block mb-2">รายละเอียดงาน</label>
-                  <textarea className="w-full p-2 border rounded"></textarea>
+                  <textarea className="w-full p-2 border rounded" disabled></textarea>
                 </form>
                 <button className="bg-black text-white py-2 px-4 mt-4 w-full rounded">Review</button>
                 <p className="text-gray-500 text-xs mt-2">* About The Internship Environment</p>
@@ -54,13 +57,13 @@ const history = () => {
                 <h2 className="font-semibold mb-2 text-lg">Company C.</h2>
                 <form>
                   <label className="block mb-2">วันที่สมัคร</label>
-                  <input className="w-full mb-4 p-2 border rounded" type="text" />
+                  <input className="w-full mb-4 p-2 border rounded" type="text" disabled/>
                   
                   <label className="block mb-2">ตำแหน่ง</label>
-                  <input className="w-full mb-4 p-2 border rounded" type="text" />
+                  <input className="w-full mb-4 p-2 border rounded" type="text" disabled/>
                   
                   <label className="block mb-2">รายละเอียดงาน</label>
-                  <textarea className="w-full p-2 border rounded"></textarea>
+                  <textarea className="w-full p-2 border rounded" disabled></textarea>
                 </form>
                 <button className="bg-black text-white py-2 px-4 mt-4 w-full rounded">Review</button>
                 <p className="text-gray-500 text-xs mt-2">* About The Internship Environment</p>

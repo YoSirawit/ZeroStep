@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import NavbarCom from "../components/NavbarCom";
 import Link from 'next/link';
-import ConfirmationPopup from "../components/ConfirmationPopup"; // ใช้ชื่อที่ถูกต้อง
+import ConfirmationPopup from "../components/ConfirmationPopup";
+import Select from 'react-select';
 
 function CreatePost() {
   const [showPopup, setShowPopup] = useState(false); // สถานะเพื่อควบคุมการแสดง ConfirmationPopup
+  const [selectedField, setselectedField] = useState([]); // State สำหรับจัดการ field ที่เลือก
+  const [selectedWorkType, setselectedWorkType] = useState([]);
 
   const handleSave = () => {
     setShowPopup(true); // แสดง ConfirmationPopup เมื่อกดบันทึก
@@ -15,6 +18,18 @@ function CreatePost() {
     // เปลี่ยนเส้นทางไปยังหน้า Company
     window.location.href = '/company'; // เปลี่ยนเส้นทางไปยังหน้า Company
   };
+  // ตัวเลือกสำหรับ field
+  const fieldOptions = [
+    { value: 'IT', label: 'IT' },
+    { value: 'AI', label: 'AI' },
+    { value: 'DSBA', label: 'DSBA' },
+  ];
+  // ตัวเลือกสำหรับ WorkType
+  const workTypeOptions = [
+    { value: 'Work From Home', label: 'Work From Home' },
+    { value: 'In-office', label: 'In-office' },
+    { value: 'Hybrid', label: 'Hybrid' },
+  ];
 
   return (
     <div>
@@ -40,20 +55,17 @@ function CreatePost() {
             </div>
           </div>
 
-          {/* Faculty และ Field */}
+          {/*Field */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="font-medium">Faculty</label>
-              <input
-                type="text"
-                className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="font-medium">Field : สาขา หรือ สายงาน</label>
-              <input
-                className="w-full p-2 mt-1 border border-gray-300 rounded-lg"
-                type="text"
+            <label className="font-medium">Field : สาขา หรือ สายงาน</label>
+              {/* ใช้ react-select สำหรับ dropdown multi-select */}
+              <Select
+                isMulti
+                options={fieldOptions}
+                value={selectedField}
+                onChange={setselectedField}
+                className="w-full mt-1"
               />
             </div>
           </div>
@@ -69,9 +81,13 @@ function CreatePost() {
             </div>
             <div className="col-span-4">
               <label className="font-medium">Work Type</label>
-              <input
-                type="text"
-                className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              {/* ใช้ react-select สำหรับ dropdown multi-select */}
+              <Select
+                isMulti
+                options={workTypeOptions}
+                value={selectedWorkType}
+                onChange={setselectedWorkType}
+                className="w-full mt-1"
               />
             </div>
           </div>
