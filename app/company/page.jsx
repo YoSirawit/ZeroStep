@@ -13,8 +13,7 @@ function CompanyPage() {
     const [isJobContent2Visible, setJobContent2Visible] = useState(true);
     const [jobs, setJobs] = useState([
         { title: 'Position 1', candidates: 3, isOpen: true },
-        { title: 'Position 2', candidates: 3, isOpen: false },
-        { title: 'Position 3', candidates: 3, isOpen: true }
+        { title: 'Position 2', candidates: 2, isOpen: false },
     ]);
 
     const toggleJobContent1 = () => {
@@ -62,7 +61,7 @@ function CompanyPage() {
                 <div className="bg-gray-100 p-5 rounded-lg shadow">
                     <header className="flex justify-between items-center py-3 mb-4">
                         <div className="flex items-center">
-                            <h2 className="text-xl font-bold">Position 1</h2>
+                            <h2 className="text-2xl font-bold">Developer</h2>
                             {jobs[0].isOpen ? (
                                 <div className="ml-4 w-3 h-3 bg-green-500 rounded-full"></div>
                             ) : (
@@ -82,23 +81,26 @@ function CompanyPage() {
                         <div className="grid grid-cols-4 gap-5">
                             {/* Candidate 1 */}
                             <div className="bg-white p-5 rounded shadow">
-                                <h3 className="text-xl font-bold">John Doe</h3>
-                                <p>21 Years</p>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                                <h3 className="text-xl font-bold">นายโย่ ดำรงคงกระพันธ์</h3>
+                                <p>19 Years</p>
+                                <p className="text-sm">Hard skills </p>
+                                <p className="text-sm">มี 20 บาท ก็อยู่ได้</p>
                                 <p className="font-bold text-red-500">98%</p>
                             </div>
                             {/* Candidate 2 */}
                             <div className="bg-white p-5 rounded shadow">
-                                <h3 className="text-xl font-bold">Mary Jane</h3>
-                                <p>23 Years</p>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                                <h3 className="text-xl font-bold">นางสาวไทยากิ ดำรง Orz</h3>
+                                <p>19 Years</p>
+                                <p className="text-sm">Hard skills </p>
+                                <p className="text-sm">สู้โย่สุดใจ แต่สู้เน็ตกลับทันที</p>
                                 <p className="font-bold text-red-500">92%</p>
                             </div>
                             {/* Candidate 3 */}
                             <div className="bg-white p-5 rounded shadow">
-                                <h3 className="text-xl font-bold">Jade Wilson</h3>
-                                <p>28 Years</p>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                                <h3 className="text-xl font-bold">นายทัค ดำรงนิรันดร์</h3>
+                                <p>20 Years</p>
+                                <p className="text-sm">Hard skills </p>
+                                <p className="text-sm">เรียนรู้ไว้ เก่งเจ๋ง</p>
                                 <p className="font-bold text-red-500">92%</p>
                             </div>
                         </div>
@@ -120,7 +122,7 @@ function CompanyPage() {
                 <div className="bg-gray-100 p-5 rounded-lg shadow">
                     <header className="flex justify-between items-center py-3 mb-4">
                         <div className="flex items-center">
-                            <h2 className="text-xl font-bold">Position 2</h2>
+                            <h2 className="text-2xl font-bold">Designer</h2>
                             {jobs[1].isOpen ? (
                                 <div className="ml-4 w-3 h-3 bg-green-500 rounded-full"></div>
                             ) : (
@@ -140,24 +142,19 @@ function CompanyPage() {
                         <div className="grid grid-cols-4 gap-5">
                             {/* Candidate 1 */}
                             <div className="bg-white p-5 rounded shadow">
-                                <h3 className="text-xl font-bold">Alice Smith</h3>
-                                <p>26 Years</p>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                                <h3 className="text-xl font-bold">นายสมาคม Roblox</h3>
+                                <p>2 Years</p>
+                                <p className="text-sm">Hard skills </p>
+                                <p className="text-sm">ยิงแม่น</p>
                                 <p className="font-bold text-red-500">89%</p>
                             </div>
                             {/* Candidate 2 */}
                             <div className="bg-white p-5 rounded shadow">
-                                <h3 className="text-xl font-bold">Bob Johnson</h3>
-                                <p>30 Years</p>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                                <h3 className="text-xl font-bold">นางสาวหนาว รอทุกคนที่ห้องสมุด</h3>
+                                <p>2.2 Years</p>
+                                <p className="text-sm">Hard skills </p>
+                                <p className="text-sm">เป็นนักข้ามเวลา</p>
                                 <p className="font-bold text-red-500">85%</p>
-                            </div>
-                            {/* Candidate 3 */}
-                            <div className="bg-white p-5 rounded shadow">
-                                <h3 className="text-xl font-bold">Charlie Brown</h3>
-                                <p>29 Years</p>
-                                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-                                <p className="font-bold text-red-500">92%</p>
                             </div>
                         </div>
                     )}
