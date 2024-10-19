@@ -18,7 +18,7 @@ const JobSearch: React.FC = () => {
             ]);
         }
     };
-    const jobTitleOptions: string[] = ["Developer", "Designer", "Manager"];
+    const jobTitleOptions: string[] = ["FullStack Developer", "Database Designer", "AI Developer"];
     const FacultyOptions: string[] = ["IT", "DSBA", "AIT"];
     const WorkTypeOptions: string[] = ["Work From Home", "In-office", "Hybrid"];
     const ProvinceOptions: string[] = ["Bangkok", "Roi-et", "Chiang-Mai" , "Nonthaburi"];
@@ -129,11 +129,11 @@ const JobSearch: React.FC = () => {
                     />
                     <Autocomplete
                         options={FacultyOptions}
-                        onChange={(e, value) => handleComboboxChange(event, value, "Faculty")}
+                        onChange={(e, value) => handleComboboxChange(event, value, "Field")}
                         sx={{ 
                             width: '322px',
                         }}
-                        renderInput={(params) => <TextField {...params} label="Faculty" />}
+                        renderInput={(params) => <TextField {...params} label="Field" />}
                     />
                     <Autocomplete
                         options={WorkTypeOptions}
@@ -145,11 +145,11 @@ const JobSearch: React.FC = () => {
                     />
                     <Autocomplete
                         options={ProvinceOptions}
-                        onChange={(e, value) => handleComboboxChange(event, value, "Province")}
+                        onChange={(e, value) => handleComboboxChange(event, value, "Location")}
                         sx={{ 
                             width: '220px',
                         }}
-                        renderInput={(params) => <TextField {...params} label="Province" />}
+                        renderInput={(params) => <TextField {...params} label="Location" />}
                     />
                     <Autocomplete
                         options={WorkHourOptions}

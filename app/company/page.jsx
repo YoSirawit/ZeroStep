@@ -11,6 +11,7 @@ import { faPlus, faMinus, faEye, faCheck, faTimes } from '@fortawesome/free-soli
 function CompanyPage() {
     const [isJobContent1Visible, setJobContent1Visible] = useState(true);
     const [isJobContent2Visible, setJobContent2Visible] = useState(true);
+    const [isPopupVisible, setPopupVisible] = useState(false); // สำหรับเปิด/ปิด Popup
     const [jobs, setJobs] = useState([
         { title: 'Position 1', candidates: 3, isOpen: true },
         { title: 'Position 2', candidates: 2, isOpen: false },
