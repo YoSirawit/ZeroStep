@@ -85,7 +85,7 @@ const handleEditClick = async () => {
     setIsEditable((prev) => !prev); // Toggle the edit mode
     if (isAddSkill) {
         try {
-            await fetch('https://zero-step-wheat.vercel.app/api/InsertProfile', {
+            await fetch('http://localhost:3000/api/InsertProfile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ const handleEditClick = async () => {
     }
     if (isEditable) {
         try {
-            await fetch('https://zero-step-wheat.vercel.app/api/UpdateProfile', {
+            await fetch('http://localhost:3000/api/UpdateProfile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
