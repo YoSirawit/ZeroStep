@@ -56,7 +56,7 @@ const positionOptions = [
 const fieldOptions = [
   { value: 'IT', label: 'IT' },
   { value: 'DSBA', label: 'DSBA' },
-  { value: 'AIT', label: 'AIT' },
+  { value: 'AI', label: 'AI' },
 ];
 
 const companyNameOptions = [
@@ -92,13 +92,69 @@ export default function Home() {
 // for database link
 //-------------------------------------
 const jobs = [
-  { field: 'IT', position: 'FullStack Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
-  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
-  { field: 'AIT', position: 'AI Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
-  { field: 'DSBA', position: 'Database Analyst', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
-  { field: 'IT', position: 'Front-end Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
-  { field: 'IT', position: 'System Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
-  
+  {
+  field: 'IT',
+  position: 'Fullstack Developer',
+  compensation: '500',
+  location_: 'Bangkok',
+  hardSkillReq: [ 'JavaScript', 'Next.js' ],
+  worktype: 'In-office',
+  companyname: 'ITforgerenger'
+},
+{
+  field: 'IT',
+  position: 'Front-end Developer',
+  compensation: '500',
+  location_: 'Chiang-mai',
+  hardSkillReq: [ 'JavaScript', 'HTML', 'CSS', 'React.js' ],
+  worktype: 'In-office',
+  companyname: 'ITforgerenger'
+},
+{
+  field: 'IT',
+  position: 'System Designer',
+  compensation: '500',
+  location_: 'Bangkok',
+  hardSkillReq: [ 'DesignThinking' ],
+  worktype: 'In-office',
+  companyname: 'ITforgerenger'
+},
+{
+  field: 'AI',
+  position: 'AI Developer',
+  compensation: '500',
+  location_: 'Bangkok',
+  hardSkillReq: [ 'Python' ],
+  worktype: 'In-office',
+  companyname: 'AItakeover'
+},
+{
+  field: 'Data',
+  position: 'Database Analyst',
+  compensation: '500',
+  location_: 'Chiang-mai',
+  hardSkillReq: [ 'Python' ],
+  worktype: 'In-office',
+  companyname: 'DataMaster'
+},
+{
+  field: 'AI',
+  position: 'AI Developer',
+  compensation: '500',
+  location_: 'Chiang-mai',
+  hardSkillReq: [ 'Python' ],
+  worktype: 'In-office',
+  companyname: 'AItakeover'
+},
+{
+  field: 'Data',
+  position: 'Database Designer',
+  compensation: '500',
+  location_: 'Bangkok',
+  hardSkillReq: [ 'SQL' ],
+  worktype: 'In-office',
+  companyname: 'DataMaster'
+}
   // Add more jobs if needed
 ];
 
