@@ -69,7 +69,7 @@ const positionOptions = [
 const fieldOptions = [
   { value: 'IT', label: 'IT' },
   { value: 'DSBA', label: 'DSBA' },
-  { value: 'AIT', label: 'AIT' },
+  { value: 'AI', label: 'AI' },
 ];
 
 const companyNameOptions = [
