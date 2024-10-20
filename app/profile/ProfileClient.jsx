@@ -77,27 +77,48 @@ const [hardSkill, setHardSkill] = useState(skill);
 const [newSkill, setNewSkill] = useState("");
 let skillCopy = hardSkill.map((skillE, index) => ([index+1, skillE.skill]));
 
+// let skillCopy = hardSkill.map((skillE, index) => ([index, skillE.skill]));
+// console.log(skillCopy);
+// console.log(applicantData);
 // Toggle edit mode on button click
 const handleEditClick = async () => {
     setIsEditable((prev) => !prev); // Toggle the edit mode
     if (isAddSkill) {
-        // if (newSkill != "") {
-        //     insertSkill(newSkill)
-        // }
+        try {
+            await fetch('https://zero-step-wheat.vercel.app/api/InsertProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ newSkill }), // Wrap firstName in an object
+            });
+        } catch (error) {
+            console.log(error);
+        }
         setIsAddSkill(false);
     }
     if (isEditable) {
-        // try {
-        //     await fetch('http://localhost:3000/api/InsertProfile', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({ firstName }), // Wrap firstName in an object
-        //     });
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        try {
+            await fetch('https://zero-step-wheat.vercel.app/api/UpdateProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    id,
+                    firstName,
+                    lastName,
+                    location,
+                    faculty,
+                    workExperience,
+                    interestedField,
+                    dateOfBirth
+                }), // Wrap firstName in an object
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        window.location.reload();
     }
 };
 
@@ -133,7 +154,7 @@ return (
                     height={225}
                     className="rounded-full mb-4"
                 /> */}
-                <FontAwesomeIcon icon={faUser} className="w-32 h-32 rounded-full mt-8 mb-8" />
+                <FontAwesomeIcon icon={faUser} className="w-32 h-32 mt-8 mb-8" />
                 <h2 className="text-xl font-bold">Profile</h2>
                 <h2 className="text-xl mb-6">ID : {id}</h2>
             </div>
@@ -200,11 +221,8 @@ return (
                 <input
                     type="texst"
                     value={studyYear} // Use the lastName state
-                    onChange={(e) => setStudyYear(e.target.value)} // Update last name state
-                    readOnly={!isEditable} // Toggle readOnly based on state
-                    className={`w-9 p-2 mt-1 border text-center ${
-                    isEditable ? "border-blue-500" : "border-gray-300"
-                    } rounded-md`}
+                    readOnly='true' // Toggle readOnly based on state
+                    className={`w-9 p-2 mt-1 border text-center border-gray-300 rounded-md`}
                 />
             </div>
 

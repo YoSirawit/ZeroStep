@@ -8,7 +8,7 @@ export async function GET(request) {
     try{
          const announcement = await SearchingAnnouncementPage.findMyJob();
          console.log(announcement);
-        //  const announcement = await sql`SELECT * FROM Applicant;`
+        //  const announcement = await sqlSELECT * FROM Applicant;
         //  const data = announcement.json();
         //  console.log('match-api: ', announcement);
         // if(pets.rowCount > 0){
@@ -19,5 +19,5 @@ export async function GET(request) {
     }catch{
         return NextResponse.json({ error }, { status: 500 });
     }
-   
+
 }

@@ -1,10 +1,12 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from "./components/Navbar";
 import Select from "react-select";
 import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
+import hardskill from "./components/hardskill"
+import HardSkill from './components/hardskill';
 
 async function getPets(){
   try{
@@ -18,20 +20,20 @@ async function getPets(){
 
 }
 
-async function getAnnouncement(){
-  try{
-    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement');
-    // const ann_data = await announcement.json();
-    // // console.log(ann_data.announcement);
-    // return ann_data.announcement;
-  } catch (error){
-      console.error(error);
-  }
-}
+// async function getAnnouncement(){
+//   try{
+//     const announcement = await fetch('https://localhost:3000/api/get-announcement');
+//     const ann_data = await announcement.json();
+//     // console.log(ann_data.announcement);
+//     return ann_data.announcement;
+//   } catch (error){
+//       console.error(error);
+//   }
+// }
 
 async function matchAnnouncement(){
   try{
-    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {cache: 'no-store'});
+    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-match-announcement', {next: {revalidate: 0}});
     const data = await announcement.json();
     // const ann_data = await announcement.json();
     // // console.log(ann_data.announcement);
@@ -41,8 +43,19 @@ async function matchAnnouncement(){
   }
 }
 
+// async function getAnnouncement(){
+//   try{
+//     const announcement = await fetch('http://localhost:3000/api/get-announcement', {cache: 'no-store'});
+//     const data = await announcement.json();
+//     return data;
+//   }catch(error){
+//     console.log(error);
+//   }
+// }
+
 let job_list;
 let data = [];
+let announcementTest = [];
 
 // Data for filter
 // for database link
@@ -56,7 +69,7 @@ const positionOptions = [
 const fieldOptions = [
   { value: 'IT', label: 'IT' },
   { value: 'DSBA', label: 'DSBA' },
-  { value: 'AIT', label: 'AIT' },
+  { value: 'AI', label: 'AI' },
 ];
 
 const companyNameOptions = [
@@ -80,6 +93,31 @@ const locationOptions = [
 
 // Main component
 export default function Home() {
+
+  const [jobTest, setJobTest] = useState([]);
+  async function getAnnouncement(){
+    try{
+      const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement', {next: {revalidate: 0}});
+      const ann_data = await announcement.json();
+      console.log('from direct database', ann_data.ann);
+      setJobTest(ann_data.ann);
+      // return ann_data.announcement;
+    } catch (error){
+        console.error(error);
+    }
+  }
+
+  useEffect(() => {
+
+    getAnnouncement();
+
+  }, [])
+
+  jobs = jobTest;
+  console.log('current',jobs);
+
+
+
   return (
     <div>
       <Navbar />
@@ -91,9 +129,14 @@ export default function Home() {
 // Data for announcement jobs
 // for database link
 //-------------------------------------
-const jobs = [
-  { field: 'IT', position: 'FullStack Developer', compensation: 'THB 300/day', location: 'Bangkok', worktype: 'Full-time', companyname: 'ITforgerenger' },
-  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Bangkok', worktype: 'Full-time', companyname: 'AItakeover' },
+let jobs = [
+  { field: 'IT', position: 'FullStack Developer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
+  { field: 'AIT', position: 'AI Developer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
+  { field: 'DSBA', position: 'Data Analyst', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
+  { field: 'IT', position: 'Front-end Developer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'IT', position: 'System Designer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  
   // Add more jobs if needed
 ];
 
@@ -130,7 +173,7 @@ function JobSearch() {
       const matchCompany = filters.companyName.length === 0 || filters.companyName.some(c => c.value === job.companyname);
       const matchField = filters.field.length === 0 || filters.field.some(f => f.value === job.field);
       const matchWorkType = filters.workType.length === 0 || filters.workType.some(w => w.value === job.worktype);
-      const matchLocation = filters.location.length === 0 || filters.location.some(l => l.value === job.location);
+      const matchLocation = filters.location.length === 0 || filters.location.some(l => l.value === job.location_);
 
       return matchPosition && matchCompany && matchField && matchWorkType && matchLocation;
     });
@@ -250,21 +293,20 @@ function JobSearch() {
           <div className="flex gap-5">
             {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
-              {data.map((job, i) => (
+              {data.map((job) => (
                 <div
-                  key={i}
+                  key={job.id}
                   onClick={() => setSelectedJob(job)}
-                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.id === job.id ? 'border-blue-500' : 'border-gray-300'}`}
                 >
                   <h3 className="text-lg font-semibold">{job.companyname}</h3>
                   <p className="text-gray-500">{job.position}</p>
                   <p className="text-gray-500">{job.location}</p>
-                  <p className="text-gray-500">{job.compensation}</p>
-                  <p className="text-gray-500">Compatibility : {job.score}</p>
+                  <p className="text-black-500">ค่าจ้างรายวัน : {job.compensation} บาท</p>
+                  <p className="text-red-500">Compatibility : {job.score} %</p>
                 </div>
               ))}
             </div>
-            
 
             {/* Job results เต็มฝั่งขวา */}
             <div className="w-2/3">
@@ -272,10 +314,26 @@ function JobSearch() {
                 <div className="border p-5">
                   <h2 className="text-2xl font-bold">{selectedJob.companyname}</h2>
                   <p className="text-gray-600">{selectedJob.position}</p>
-                  <p>{selectedJob.location} | {selectedJob.worktype}</p>
-                  <p>{selectedJob.compensation}</p>
-                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
-                    <div className="mt-5">
+                  <p>{selectedJob.worktype}</p>
+                  <p className="text-black-500">ค่าจ้างรายวัน : {selectedJob.compensation} บาท</p>
+                  <p>{selectedJob.location}</p>
+                  <p className="text-red-500">Compatibility : {selectedJob.score} %</p>
+
+                  {/* hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                  <p className="text-black-500 text-bold">Hard skill requirement :</p>
+                  {selectedJob && 
+                    selectedJob.hardSkillReq.map((ann) =>{
+                      return(
+                      <HardSkill key={ann} hardSkillReq={ann}/>
+                    )})
+                  }
+                  {/* <p className="text-gray-500">• HTML</p>
+                  <p className="text-gray-500">• Javascript</p> */}
+                  <p className="text-black-500 text-bold">Responsibilities :</p>
+                  <p className="text-gray-500 ">{selectedJob.responsibility}</p>
+                  <p className="text-black-500 text-bold ">Location : {selectedJob.location_}</p>
+
+                  <div className="mt-5">
                     <Link href="/homeSendResume">
                       <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
                     </Link>
@@ -286,36 +344,31 @@ function JobSearch() {
               )}
             </div>
           </div>
-        ) : (
-          isSearchClicked && (
-            <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
-          )
-        )}
-
-
-
-
-
+        ) : isMatchClicked && data.length === 0 ? (
+          <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
+        ) : null}
 
         {/* Job results - Show only when the button is clicked */}
-        {isSearchClicked && filteredJobs.length > 0 ? (
+        {isSearchClicked && filteredJobs.length === 0 ? (
+          <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
+        ) : (
+          isSearchClicked && filteredJobs.length > 0 && (
           <div className="flex gap-5">
             {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
-              {filteredJobs.map((job, i) => (
+              {filteredJobs.map((job) => (
                 <div
-                  key={i}
+                  key={job.id}
                   onClick={() => setSelectedJob(job)}
-                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.id === job.id ? 'border-blue-500' : 'border-gray-300'}`}
                 >
                   <h3 className="text-lg font-semibold">{job.companyname}</h3>
                   <p className="text-gray-500">{job.position}</p>
                   <p className="text-gray-500">{job.location}</p>
-                  <p className="text-gray-500">{job.compensation}</p>
+                  <p className="text-gray-500">ค่าจ้างรายวัน : {job.compensation} บาท</p>
                 </div>
               ))}
             </div>
-            
 
             {/* Job results เต็มฝั่งขวา */}
             <div className="w-2/3">
@@ -323,9 +376,25 @@ function JobSearch() {
                 <div className="border p-5">
                   <h2 className="text-2xl font-bold">{selectedJob.companyname}</h2>
                   <p className="text-gray-600">{selectedJob.position}</p>
-                  <p>{selectedJob.location} | {selectedJob.worktype}</p>
-                  <p>{selectedJob.compensation}</p>
-                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                  <p>{selectedJob.location}</p>
+                  <p>{selectedJob.worktype}</p>
+                  <p className="text-black-500">ค่าจ้างรายวัน : {selectedJob.compensation} บาท</p>
+
+                  {/* hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                  {/* -------------------------------------------------------------------------------------------------------------------------------*/}
+                  <p className="text-black-500 text-bold">Hard skill requirement :</p>
+                  {selectedJob && 
+                    selectedJob.hardSkillReq.map((ann) =>{
+                      return(
+                      <HardSkill key={ann} hardSkillReq={ann}/>
+                    )})
+                  }
+                  {/* <p className="text-gray-500">• HTML</p>
+                  <p className="text-gray-500">• JavaScript</p> */}
+                  <p className="text-black-500 text-bold">Responsibilities :</p>
+                  <p className="text-gray-500 ">{selectedJob.responsibility}</p>
+                  <p className="text-black-500 text-bold ">Location : {selectedJob.location_}</p>
+
                     <div className="mt-5">
                     <Link href="/homeSendResume">
                       <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
@@ -337,10 +406,7 @@ function JobSearch() {
               )}
             </div>
           </div>
-        ) : (
-          isSearchClicked && (
-            <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
-          )
+        ) 
         )}
         {/* {isMatchClicked = true? (
               <div className='flex gap-5'>
