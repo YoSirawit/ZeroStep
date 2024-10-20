@@ -151,7 +151,7 @@ class Applicant {
             this.#location_ = user_info.rows[0].location;
             this.#exp = user_info.rows[0].experience;
             this.#studyYear = user_info.rows[0].studyyear;
-            this.#interestedField = user_info.rows[0].onterestedfield;
+            this.#interestedField = user_info.rows[0].interested_field;
             this.#faculty = user_info.rows[0].faculty;
             
         }catch(error){
