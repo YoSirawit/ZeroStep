@@ -1,11 +1,11 @@
-// // "use client"
-// import React from 'react'
-// import Navbar from "../components/Navbar";
-// import Link from 'next/link';
-// import { sql } from '@vercel/postgres';
-// import Petinfo from '../components/petinfo';
-// import InfoCard from '../components/InfoCard';
-// import { NextResponse } from 'next/server';
+// "use client"
+import React from 'react'
+import Navbar from "../components/Navbar";
+import Link from 'next/link';
+import { sql } from '@vercel/postgres';
+import Petinfo from '../components/petinfo';
+import InfoCard from '../components/InfoCard';
+import { NextResponse } from 'next/server';
 
 
 
@@ -46,7 +46,7 @@
 //   sql`DELETE FROM Pets`
 // }
 
-// async function Home() {
+async function Home() {
 
 //     const announcement = await matchAnnouncement();
 //     console.log(announcement.announcement);
@@ -76,7 +76,7 @@
 
 //     </div>
 //   )
-// }
+}
 
-// export default Home
+export default Home
 
