@@ -1,10 +1,12 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from "./components/Navbar";
 import Select from "react-select";
 import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
+import hardskill from "./components/hardskill"
+import HardSkill from './components/hardskill';
 
 async function getPets(){
   try{
@@ -18,16 +20,16 @@ async function getPets(){
 
 }
 
-async function getAnnouncement(){
-  try{
-    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement');
-    // const ann_data = await announcement.json();
-    // // console.log(ann_data.announcement);
-    // return ann_data.announcement;
-  } catch (error){
-      console.error(error);
-  }
-}
+// async function getAnnouncement(){
+//   try{
+//     const announcement = await fetch('https://localhost:3000/api/get-announcement');
+//     const ann_data = await announcement.json();
+//     // console.log(ann_data.announcement);
+//     return ann_data.announcement;
+//   } catch (error){
+//       console.error(error);
+//   }
+// }
 
 async function matchAnnouncement(){
   try{
@@ -41,8 +43,19 @@ async function matchAnnouncement(){
   }
 }
 
+// async function getAnnouncement(){
+//   try{
+//     const announcement = await fetch('http://localhost:3000/api/get-announcement', {cache: 'no-store'});
+//     const data = await announcement.json();
+//     return data;
+//   }catch(error){
+//     console.log(error);
+//   }
+// }
+
 let job_list;
 let data = [];
+let announcementTest = [];
 
 // Data for filter
 // for database link
@@ -80,6 +93,31 @@ const locationOptions = [
 
 // Main component
 export default function Home() {
+
+  const [jobTest, setJobTest] = useState([]);
+  async function getAnnouncement(){
+    try{
+      const announcement = await fetch('http://localhost:3000/api/get-announcement');
+      const ann_data = await announcement.json();
+      console.log('from direct database', ann_data.ann);
+      setJobTest(ann_data.ann);
+      // return ann_data.announcement;
+    } catch (error){
+        console.error(error);
+    }
+  }
+
+  useEffect(() => {
+
+    getAnnouncement();
+
+  }, [])
+
+  jobs = jobTest;
+  console.log('current',jobs);
+
+
+
   return (
     <div>
       <Navbar />
@@ -91,11 +129,11 @@ export default function Home() {
 // Data for announcement jobs
 // for database link
 //-------------------------------------
-const jobs = [
+let jobs = [
   { field: 'IT', position: 'FullStack Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
   { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
   { field: 'AIT', position: 'AI Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
-  { field: 'DSBA', position: 'Database Analyst', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
+  { field: 'DSBA', position: 'Data Analyst', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
   { field: 'IT', position: 'Front-end Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
   { field: 'IT', position: 'System Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
   
@@ -255,11 +293,11 @@ function JobSearch() {
           <div className="flex gap-5">
             {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
-              {data.map((job, i) => (
+              {data.map((job) => (
                 <div
-                  key={i}
+                  key={job.id}
                   onClick={() => setSelectedJob(job)}
-                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.id === job.id ? 'border-blue-500' : 'border-gray-300'}`}
                 >
                   <h3 className="text-lg font-semibold">{job.companyname}</h3>
                   <p className="text-gray-500">{job.position}</p>
@@ -283,10 +321,16 @@ function JobSearch() {
 
                   {/* hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
                   <p className="text-black-500 text-bold">Hard skill requirement :</p>
-                  <p className="text-gray-500">• HTML</p>
-                  <p className="text-gray-500">• Javascript</p>
+                  {selectedJob && 
+                    selectedJob.hardSkillReq.map((ann) =>{
+                      return(
+                      <HardSkill key={ann} hardSkillReq={ann}/>
+                    )})
+                  }
+                  {/* <p className="text-gray-500">• HTML</p>
+                  <p className="text-gray-500">• Javascript</p> */}
                   <p className="text-black-500 text-bold">Responsibilities :</p>
-                  <p className="text-gray-500 ">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                  <p className="text-gray-500 ">{selectedJob.responsibility}</p>
 
                   <div className="mt-5">
                     <Link href="/homeSendResume">
@@ -311,11 +355,11 @@ function JobSearch() {
           <div className="flex gap-5">
             {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
-              {filteredJobs.map((job, i) => (
+              {filteredJobs.map((job) => (
                 <div
-                  key={i}
+                  key={job.id}
                   onClick={() => setSelectedJob(job)}
-                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.position === job.position ? 'border-blue-500' : 'border-gray-300'}`}
+                  className={`p-5 mb-4 border rounded-lg cursor-pointer ${selectedJob?.id === job.id ? 'border-blue-500' : 'border-gray-300'}`}
                 >
                   <h3 className="text-lg font-semibold">{job.companyname}</h3>
                   <p className="text-gray-500">{job.position}</p>
@@ -338,10 +382,18 @@ function JobSearch() {
                   {/* hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
                   {/* -------------------------------------------------------------------------------------------------------------------------------*/}
                   <p className="text-black-500 text-bold">Hard skill requirement :</p>
-                  <p className="text-gray-500">• HTML</p>
-                  <p className="text-gray-500">• JavaScript</p>
+                  {selectedJob && 
+                    selectedJob.hardSkillReq.map((ann) =>{
+                      return(
+                      <HardSkill key={ann} hardSkillReq={ann}/>
+                    )})
+                  }
+                  {/* <p className="text-gray-500">• HTML</p>
+                  <p className="text-gray-500">• JavaScript</p> */}
                   <p className="text-black-500 text-bold">Responsibilities :</p>
-                  <p className="text-gray-500 ">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                  <p className="text-gray-500 ">{selectedJob.responsibility}</p>
+                  <p className="text-black-500 text-bold ">Location :</p>
+                  <p className="text-gray-500 ">{selectedJob.location_}</p>
 
                     <div className="mt-5">
                     <Link href="/homeSendResume">

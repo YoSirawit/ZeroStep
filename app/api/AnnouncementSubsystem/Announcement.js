@@ -13,10 +13,11 @@ class Announcement{
     location_;
     hardSkillReq;
     softSkillReq;
-    worktype
-    score
+    worktype;
+    score;
+    responsibility;
 
-    constructor(field, pos, compensation, location_, worktype){
+    constructor(field, pos, compensation, location_, worktype, responsibility){
         this.field = field;
         this.position = pos;
         this.compensation = compensation;
@@ -24,6 +25,7 @@ class Announcement{
         this.hardSkillReq = [];
         this.worktype = worktype;
         this.score = 0;
+        this.responsibility = responsibility;
     }
 
     set Companyname(name){
@@ -103,11 +105,19 @@ class Announcement{
         return this.worktype;
     }
 
+    set Responsibility(string){
+        this.responsibility = string
+    }
+
+    get Responsibility(){
+        return this.responsibility;
+    }
+
     static async getJobList(input){
         if (input instanceof Applicant){
             //for getJobList(Applicant user) : Announcement
             try{
-                const announcement = await sql`SELECT announcement.id, announcement.field, announcement.position, announcement.compensation, announcement.location, announcement.worktype, company.companyname, company.contact FROM announcement JOIN company ON announcement.companyid = company.id`;
+                const announcement = await sql`SELECT announcement.id, announcement.field, announcement.position, announcement.compensation, announcement.location, announcement.worktype, company.companyname, company.contact, announcement.responsibility FROM announcement JOIN company ON announcement.companyid = company.id`;
                 // console.log(announcement.rows);
                 const skill_applicant = await sql`select * from skill`;
                 for(let j = 0; j < skill_applicant.rowCount; j++){
@@ -117,7 +127,7 @@ class Announcement{
                 let announce_list = [];
                 for(let i=0 ; i<announcement.rowCount; i++){
                     let skill_length = 0;
-                    let announce = new Announcement(announcement.rows[i].field, announcement.rows[i].position, announcement.rows[i].compensation, announcement.rows[i].location, announcement.rows[i].worktype);
+                    let announce = new Announcement(announcement.rows[i].field, announcement.rows[i].position, announcement.rows[i].compensation, announcement.rows[i].location, announcement.rows[i].worktype, announcement.rows[i].responsibility);
                     announce.Id = announcement.rows[i].id;
                     announce.Companyname = announcement.rows[i].companyname;
                     const hardskill = await sql`select skill from announcement_skill_req where announcement_id = ${announcement.rows[i].id}`;
