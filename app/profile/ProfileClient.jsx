@@ -74,27 +74,39 @@ const [interestedField, setInterestedField] = useState(applicantData.interested_
 const [hardSkill, setHardSkill] = useState(skill);
 const [newSkill, setNewSkill] = useState("");
 
+// let skillCopy = hardSkill.map((skillE, index) => ([index, skillE.skill]));
+// console.log(skillCopy);
+// console.log(applicantData);
+
 // Toggle edit mode on button click
 const handleEditClick = async () => {
     setIsEditable((prev) => !prev); // Toggle the edit mode
     if (isAddSkill) {
-        // if (newSkill != "") {
-        //     insertSkill(newSkill)
-        // }
+        try {
+            await fetch('http://localhost:3000/api/InsertProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ newSkill }), // Wrap firstName in an object
+            });
+        } catch (error) {
+            console.log(error);
+        }
         setIsAddSkill(false);
     }
     if (isEditable) {
-        // try {
-        //     await fetch('http://localhost:3000/api/InsertProfile', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({ firstName }), // Wrap firstName in an object
-        //     });
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        try {
+            await fetch('http://localhost:3000/api/UpdateProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ firstName }), // Wrap firstName in an object
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 };
 
@@ -123,7 +135,7 @@ return (
                     height={225}
                     className="rounded-full mb-4"
                 /> */}
-                <FontAwesomeIcon icon={faUser} className="w-32 h-32 rounded-full mt-8 mb-8" />
+                <FontAwesomeIcon icon={faUser} className="w-32 h-32 mt-8 mb-8" />
                 <h2 className="text-xl font-bold">Profile</h2>
                 <h2 className="text-xl mb-6">ID : {id}</h2>
             </div>
