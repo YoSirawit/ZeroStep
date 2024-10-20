@@ -77,7 +77,6 @@ const [newSkill, setNewSkill] = useState("");
 // let skillCopy = hardSkill.map((skillE, index) => ([index, skillE.skill]));
 // console.log(skillCopy);
 // console.log(applicantData);
-
 // Toggle edit mode on button click
 const handleEditClick = async () => {
     setIsEditable((prev) => !prev); // Toggle the edit mode
@@ -102,11 +101,21 @@ const handleEditClick = async () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ firstName }), // Wrap firstName in an object
+                body: JSON.stringify({ 
+                    id,
+                    firstName,
+                    lastName,
+                    location,
+                    faculty,
+                    workExperience,
+                    interestedField,
+                    dateOfBirth
+                }), // Wrap firstName in an object
             });
         } catch (error) {
             console.log(error);
         }
+        window.location.reload();
     }
 };
 
@@ -202,11 +211,8 @@ return (
                 <input
                     type="texst"
                     value={studyYear} // Use the lastName state
-                    onChange={(e) => setStudyYear(e.target.value)} // Update last name state
-                    readOnly={!isEditable} // Toggle readOnly based on state
-                    className={`w-9 p-2 mt-1 border text-center ${
-                    isEditable ? "border-blue-500" : "border-gray-300"
-                    } rounded-md`}
+                    readOnly='true' // Toggle readOnly based on state
+                    className={`w-9 p-2 mt-1 border text-center border-gray-300 rounded-md`}
                 />
             </div>
 

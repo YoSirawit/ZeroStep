@@ -15,10 +15,10 @@ export async function GET(request) {
             },
         });
     } catch (error) {
-        console.error('Error fetching applicant data:', error);
+        console.error('Error fetching skill data:', error);
 
         // Return an error response
-        return new Response(JSON.stringify({ error: 'Failed to fetch applicant data' }), {
+        return new Response(JSON.stringify({ error: 'Failed to fetch skill data' }), {
             status: 500,
             headers: {
                 'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ export default async function ProfilePage() {
   // Directly fetch data without caching
   const response = await fetch('http://localhost:3000/api/getApplicant', {
     method: 'GET',
+    cache: 'no-store',
     headers: {
       'Cache-Control': 'no-cache', // Ensure the request is not cached
     },
@@ -14,6 +15,7 @@ export default async function ProfilePage() {
   // const { rows: skills } = await sql`SELECT * FROM skill;`;
   const response2 = await fetch('http://localhost:3000/api/getSkill', {
     method: 'GET',
+    cache: 'no-store',
     headers: {
       'Cache-Control': 'no-cache', // Ensure the request is not cached
     },
@@ -22,6 +24,7 @@ export default async function ProfilePage() {
 
   console.log("Applicant Data: ");  
   console.log(applicant);
+  console.log(skills);
 
   return (
     <div>
