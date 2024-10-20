@@ -20,7 +20,7 @@ import { NextResponse } from 'next/server';
 
 async function getPets(){
   try{
-    const pets = await fetch('https://zero-step-wheat.vercel.app/api/get-pet-info', {cache: 'no-store'});
+    const pets = await fetch('https://zero-step-wheat.vercel.app/api/get-pet-info', {next: {revalidate: 0}});
     const pets_data = await pets.json();
     // console.log(data.pets);
     return pets_data.pets;
@@ -32,7 +32,7 @@ async function getPets(){
 
 async function matchAnnouncement(){
   try{
-    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {cache: 'no-store'});
+    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {next: {revalidate: 0}});
     const data = await announcement.json();
     // const ann_data = await announcement.json();
     // // console.log(ann_data.announcement);
