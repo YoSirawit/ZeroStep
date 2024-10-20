@@ -331,6 +331,7 @@ function JobSearch() {
                   <p className="text-gray-500">• Javascript</p> */}
                   <p className="text-black-500 text-bold">Responsibilities :</p>
                   <p className="text-gray-500 ">{selectedJob.responsibility}</p>
+                  <p className="text-black-500 text-bold ">Location : {selectedJob.location_}</p>
 
                   <div className="mt-5">
                     <Link href="/homeSendResume">
@@ -392,8 +393,7 @@ function JobSearch() {
                   <p className="text-gray-500">• JavaScript</p> */}
                   <p className="text-black-500 text-bold">Responsibilities :</p>
                   <p className="text-gray-500 ">{selectedJob.responsibility}</p>
-                  <p className="text-black-500 text-bold ">Location :</p>
-                  <p className="text-gray-500 ">{selectedJob.location_}</p>
+                  <p className="text-black-500 text-bold ">Location : {selectedJob.location_}</p>
 
                     <div className="mt-5">
                     <Link href="/homeSendResume">
