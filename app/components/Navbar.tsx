@@ -23,7 +23,6 @@ function Navbar() {
                   {/* เมนูรายการ */}
                   <ul className='flex items-center'>
                     <li className='mx-3'><Link href="/homeSendResume" legacyBehavior><a>home Send Resume</a></Link></li>
-                      <li className='mx-3'><Link href="/createResume" legacyBehavior><a>Create resume</a></Link></li>
                       <li className='mx-3'><Link href="/history" legacyBehavior><a>Applicant history</a></Link></li>
                       <li className='mx-3'>
                           <Link href="/profile" legacyBehavior>

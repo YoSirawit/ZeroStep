@@ -18,6 +18,7 @@ export default function Upload() {
     if (selectedFile) {
       console.log("Selected file:", selectedFile.name);
       alert('File uploaded successfully.');
+      window.location.href = '/history'; 
     } else {
       alert('No file selected.');
     }
