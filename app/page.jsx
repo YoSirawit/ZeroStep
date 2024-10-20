@@ -33,7 +33,7 @@ async function getPets(){
 
 async function matchAnnouncement(){
   try{
-    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {cache: 'no-store'});
+    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-match-announcement', {next: {revalidate: 0}});
     const data = await announcement.json();
     // const ann_data = await announcement.json();
     // // console.log(ann_data.announcement);
@@ -97,7 +97,7 @@ export default function Home() {
   const [jobTest, setJobTest] = useState([]);
   async function getAnnouncement(){
     try{
-      const announcement = await fetch('http://localhost:3000/api/get-announcement');
+      const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement', {next: {revalidate: 0}});
       const ann_data = await announcement.json();
       console.log('from direct database', ann_data.ann);
       setJobTest(ann_data.ann);
@@ -130,12 +130,12 @@ export default function Home() {
 // for database link
 //-------------------------------------
 let jobs = [
-  { field: 'IT', position: 'FullStack Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
-  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
-  { field: 'AIT', position: 'AI Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
-  { field: 'DSBA', position: 'Data Analyst', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
-  { field: 'IT', position: 'Front-end Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
-  { field: 'IT', position: 'System Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'IT', position: 'FullStack Developer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
+  { field: 'AIT', position: 'AI Developer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
+  { field: 'DSBA', position: 'Data Analyst', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
+  { field: 'IT', position: 'Front-end Developer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'IT', position: 'System Designer', compensation: 'Not specified', location_: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
   
   // Add more jobs if needed
 ];
@@ -173,7 +173,7 @@ function JobSearch() {
       const matchCompany = filters.companyName.length === 0 || filters.companyName.some(c => c.value === job.companyname);
       const matchField = filters.field.length === 0 || filters.field.some(f => f.value === job.field);
       const matchWorkType = filters.workType.length === 0 || filters.workType.some(w => w.value === job.worktype);
-      const matchLocation = filters.location.length === 0 || filters.location.some(l => l.value === job.location);
+      const matchLocation = filters.location.length === 0 || filters.location.some(l => l.value === job.location_);
 
       return matchPosition && matchCompany && matchField && matchWorkType && matchLocation;
     });

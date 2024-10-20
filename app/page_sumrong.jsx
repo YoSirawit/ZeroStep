@@ -60,7 +60,7 @@ async function getAnnouncement(){
 
 async function matchAnnouncement(){
   try{
-    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {cache: 'no-store'});
+    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-match-announcement', {cache: 'no-store'});
     const data = await announcement.json();
     // const ann_data = await announcement.json();
     // // console.log(ann_data.announcement);
@@ -123,7 +123,7 @@ async function matchAnnouncement(){
             location.push(filters.province[i]);
           }
         }
-        const response = await fetch('http://localhost:3000/api/get-announcement', {cache:'no-store'});
+        const response = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement', {cache:'no-store'});
         // console.log(response);
   
         if (!response.ok) {
