@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { sql } from '@vercel/postgres';
 import InfoCard from '../../components/InfoCard';
 
-async function getAnnouncement(id){
+// async function getAnnouncement(id){
 //     try{
 //         const announce = await sql`select announcement.id, field, position, compensation, location, worktype, companyname from announcement join company on announcement.companyid = company.id where announcement.id = ${id};`;
 //         // console.log(announce.rows);
@@ -15,7 +15,7 @@ async function getAnnouncement(id){
 //    }
 // }
 
-// async function announcementDetail({ params }){
+async function announcementDetail({ params }){
 //     const id = params.id
 
 //    const announce = await getAnnouncement(id);
