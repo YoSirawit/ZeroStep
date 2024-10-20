@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import Navbar from "../components/Navbar";
+import Link from 'next/link';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -73,6 +75,7 @@ const [interestedField, setInterestedField] = useState(applicantData.interested_
 
 const [hardSkill, setHardSkill] = useState(skill);
 const [newSkill, setNewSkill] = useState("");
+let skillCopy = hardSkill.map((skillE, index) => ([index+1, skillE.skill]));
 
 // Toggle edit mode on button click
 const handleEditClick = async () => {
@@ -107,6 +110,13 @@ const handleSkillChange = (index, value) => {
     editSkill[index].skill = value; // Update the skill at the specified index
     setHardSkill(editSkill); // Set the updated skills array to state
 };
+
+useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify({firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth, 
+                                                    location: location, studyYear: studyYear, education: education, 
+                                                    faculty: faculty, softSkill: softSkill, workExperience: workExperience, 
+                                                    contribution : contribution, interestedField: interestedField, hardSkill: skillCopy}));
+})
 
 return (
     <div>
@@ -323,9 +333,11 @@ return (
             </div>
 
             <div className="mt-8 flex space-x-4 flex justify-end">
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition">
-                    Create resume
-                </button>
+                <Link href='/CreateResume' legacyBehavior>
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition">
+                        Create Resume
+                    </button>
+                </Link>
                 <button 
                 className={`px-4 py-2 ${
                     isEditable ? "bg-green-500" : "bg-red-500"
