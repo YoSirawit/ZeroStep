@@ -2,6 +2,8 @@
 
 import { sql } from '@vercel/postgres'; // Ensure you have the proper database connection set up
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
     try {
         // Replace this query with your actual SQL query to fetch applicant data
