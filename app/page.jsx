@@ -33,7 +33,7 @@ async function getPets(){
 
 async function matchAnnouncement(){
   try{
-    const announcement = await fetch('http://localhost:3000/api/get-match-announcement', {next: {revalidate: 0}});
+    const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-match-announcement', {next: {revalidate: 0}});
     const data = await announcement.json();
     // const ann_data = await announcement.json();
     // // console.log(ann_data.announcement);
@@ -97,7 +97,7 @@ export default function Home() {
   const [jobTest, setJobTest] = useState([]);
   async function getAnnouncement(){
     try{
-      const announcement = await fetch('http://localhost:3000/api/get-announcement', {next: {revalidate: 0}});
+      const announcement = await fetch('https://zero-step-wheat.vercel.app/api/get-announcement', {next: {revalidate: 0}});
       const ann_data = await announcement.json();
       console.log('from direct database', ann_data.ann);
       setJobTest(ann_data.ann);

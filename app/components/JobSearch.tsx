@@ -57,7 +57,7 @@ const JobSearch: React.FC = () => {
                 continue;
             }
         }
-            const res = await fetch(`http://localhost:3000/api/get-announcement`, {
+            const res = await fetch(`https://zero-step-wheat.vercel.app/api/get-announcement`, {
                 method: 'POST',
                 headers:{
                     "Content-Type": "application/json"
