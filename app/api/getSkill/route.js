@@ -12,6 +12,9 @@ export async function GET(request) {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',
+                'Cache-Control': 'no-store',  // Prevent caching of the response
+                'Pragma': 'no-cache',         // HTTP/1.0 compatibility
+                'Expires': '0',               // Immediately expire any cached data
             },
         });
     } catch (error) {
