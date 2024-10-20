@@ -131,13 +131,32 @@ class Applicant {
 
     constructor(ID){
         this.#id = ID;
-        this.#fName = 'Sirawit';
-        this.#lName = 'Chantemduang';
-        this.#dob = '2004-08-19';
-        this.#location_= 'Bangkok';
-        this.#studyYear = '2022-07-01';
-        this.#interestedField = 'IT';
-        this.#faculty = 'IT';
+        
+        this.setUser();
+        // this.#fName = 'Sirawit';
+        // this.#lName = 'Chantemduang';
+        // this.#dob = '2004-08-19';
+        // this.#location_= 'Bangkok';
+        // this.#studyYear = '2022-07-01';
+        // this.#interestedField = 'IT';
+        // this.#faculty = 'IT';
+    }
+
+    async setUser(){
+        try{
+            const user_info = await this.getUserInfo();
+            this.#fName = user_info.rows[0].firstname;
+            this.#lName = user_info.rows[0].lastname;
+            this.#dob = user_info.rows[0].dob;
+            this.#location_ = user_info.rows[0].location;
+            this.#exp = user_info.rows[0].experience;
+            this.#studyYear = user_info.rows[0].studyyear;
+            this.#interestedField = user_info.rows[0].onterestedfield;
+            this.#faculty = user_info.rows[0].faculty;
+            
+        }catch(error){
+            console.log(error);
+        }
     }
 
     async getUserInfo() {
@@ -145,7 +164,7 @@ class Applicant {
         try{
             const user_info = await sql`select * from Applicant where ID = ${this.#id}`;
             
-            console.log('user-info sql: ',user_info);
+            // console.log('user-info sql: ',user_info);
             return user_info
         }catch(error){
             console.log(error);

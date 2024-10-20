@@ -149,7 +149,7 @@ class Announcement{
 
                     for(let k = 0; k<announce.HardSkillReq.length; k++){
                         if(input.HardSkill.includes(announce.HardSkillReq[k])){
-                            announce.addScore(38/announce.HardSkillReq.length);
+                            announce.addScore(50/announce.HardSkillReq.length);
                         }
                     }
 
@@ -158,7 +158,7 @@ class Announcement{
                     }
 
                     if(input.Faculty == announce.Field){
-                        announce.addScore(37);
+                        announce.addScore(25);
                     }
 
                     // console.log(input.Id, input.InterestedField, input.Faculty, input.Location_)
