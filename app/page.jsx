@@ -92,8 +92,13 @@ export default function Home() {
 // for database link
 //-------------------------------------
 const jobs = [
-  { field: 'IT', position: 'FullStack Developer', compensation: 'THB 300/day', location: 'Bangkok', worktype: 'Full-time', companyname: 'ITforgerenger' },
-  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Bangkok', worktype: 'Full-time', companyname: 'AItakeover' },
+  { field: 'IT', position: 'FullStack Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'DSBA', position: 'Database Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
+  { field: 'AIT', position: 'AI Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'AItakeover' },
+  { field: 'DSBA', position: 'Database Analyst', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'DataMaster' },
+  { field: 'IT', position: 'Front-end Developer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  { field: 'IT', position: 'System Designer', compensation: 'Not specified', location: 'Not specified', worktype: 'In-office', companyname: 'ITforgerenger' },
+  
   // Add more jobs if needed
 ];
 
@@ -259,12 +264,11 @@ function JobSearch() {
                   <h3 className="text-lg font-semibold">{job.companyname}</h3>
                   <p className="text-gray-500">{job.position}</p>
                   <p className="text-gray-500">{job.location}</p>
-                  <p className="text-gray-500">{job.compensation}</p>
-                  <p className="text-gray-500">Compatibility : {job.score}</p>
+                  <p className="text-black-500">ค่าจ้างรายวัน : {job.compensation} บาท</p>
+                  <p className="text-red-500">Compatibility : {job.score} %</p>
                 </div>
               ))}
             </div>
-            
 
             {/* Job results เต็มฝั่งขวา */}
             <div className="w-2/3">
@@ -272,10 +276,19 @@ function JobSearch() {
                 <div className="border p-5">
                   <h2 className="text-2xl font-bold">{selectedJob.companyname}</h2>
                   <p className="text-gray-600">{selectedJob.position}</p>
-                  <p>{selectedJob.location} | {selectedJob.worktype}</p>
-                  <p>{selectedJob.compensation}</p>
-                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
-                    <div className="mt-5">
+                  <p>{selectedJob.worktype}</p>
+                  <p className="text-black-500">ค่าจ้างรายวัน : {selectedJob.compensation} บาท</p>
+                  <p>{selectedJob.location}</p>
+                  <p className="text-red-500">Compatibility : {selectedJob.score} %</p>
+
+                  {/* hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                  <p className="text-black-500 text-bold">Hard skill requirement :</p>
+                  <p className="text-gray-500">• HTML</p>
+                  <p className="text-gray-500">• Javascript</p>
+                  <p className="text-black-500 text-bold">Responsibilities :</p>
+                  <p className="text-gray-500 ">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+
+                  <div className="mt-5">
                     <Link href="/homeSendResume">
                       <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
                     </Link>
@@ -286,19 +299,15 @@ function JobSearch() {
               )}
             </div>
           </div>
-        ) : (
-          isSearchClicked && (
-            <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
-          )
-        )}
-
-
-
-
-
+        ) : isMatchClicked && data.length === 0 ? (
+          <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
+        ) : null}
 
         {/* Job results - Show only when the button is clicked */}
-        {isSearchClicked && filteredJobs.length > 0 ? (
+        {isSearchClicked && filteredJobs.length === 0 ? (
+          <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
+        ) : (
+          isSearchClicked && filteredJobs.length > 0 && (
           <div className="flex gap-5">
             {/* Job results ย่อฝั่งซ้าย */}
             <div className="w-1/3 border-r pr-5">
@@ -311,11 +320,10 @@ function JobSearch() {
                   <h3 className="text-lg font-semibold">{job.companyname}</h3>
                   <p className="text-gray-500">{job.position}</p>
                   <p className="text-gray-500">{job.location}</p>
-                  <p className="text-gray-500">{job.compensation}</p>
+                  <p className="text-gray-500">ค่าจ้างรายวัน : {job.compensation} บาท</p>
                 </div>
               ))}
             </div>
-            
 
             {/* Job results เต็มฝั่งขวา */}
             <div className="w-2/3">
@@ -323,9 +331,18 @@ function JobSearch() {
                 <div className="border p-5">
                   <h2 className="text-2xl font-bold">{selectedJob.companyname}</h2>
                   <p className="text-gray-600">{selectedJob.position}</p>
-                  <p>{selectedJob.location} | {selectedJob.worktype}</p>
-                  <p>{selectedJob.compensation}</p>
-                  {/* //เพิ่มพวกdescription, hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                  <p>{selectedJob.location}</p>
+                  <p>{selectedJob.worktype}</p>
+                  <p className="text-black-500">ค่าจ้างรายวัน : {selectedJob.compensation} บาท</p>
+
+                  {/* hard skill reqตรงนี้ <p>{selectedJob.ใส่เพิ่ม}</p> */}
+                  {/* -------------------------------------------------------------------------------------------------------------------------------*/}
+                  <p className="text-black-500 text-bold">Hard skill requirement :</p>
+                  <p className="text-gray-500">• HTML</p>
+                  <p className="text-gray-500">• JavaScript</p>
+                  <p className="text-black-500 text-bold">Responsibilities :</p>
+                  <p className="text-gray-500 ">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+
                     <div className="mt-5">
                     <Link href="/homeSendResume">
                       <button className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-3">Send Resume</button>
@@ -337,10 +354,7 @@ function JobSearch() {
               )}
             </div>
           </div>
-        ) : (
-          isSearchClicked && (
-            <p className="text-gray-600">ไม่พบงานที่ตรงกับเงื่อนไขที่เลือก</p>
-          )
+        ) 
         )}
         {/* {isMatchClicked = true? (
               <div className='flex gap-5'>
