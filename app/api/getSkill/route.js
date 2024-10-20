@@ -7,6 +7,9 @@ export async function GET(request) {
         // Replace this query with your actual SQL query to fetch applicant data
         const { rows } = await sql`SELECT * FROM skill;`;
 
+        res.setHeader('Cache-Control', 'no-store, max-age=0, must-revalidate');
+        res.setHeader('Pragma', 'no-cache'); // HTTP 1.0 compatibility
+        res.setHeader('Expires', '0'); // Force expiration
         // Return the applicant data as a JSON response
         return new Response(JSON.stringify(rows), {
             status: 200,
