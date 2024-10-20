@@ -4,7 +4,7 @@ import ProfileClient from './ProfileClient'; // Import the client component
 export default async function ProfilePage() {
   
   // Directly fetch data without caching
-  const response = await fetch('http://localhost:3000/api/getApplicant', {
+  const response = await fetch('https://zero-step-wheat.vercel.app/api/getApplicant', {
     method: 'GET',
     cache: 'no-store',
     headers: {
@@ -13,7 +13,7 @@ export default async function ProfilePage() {
   });
   const applicant = await response.json();
   // const { rows: skills } = await sql`SELECT * FROM skill;`;
-  const response2 = await fetch('http://localhost:3000/api/getSkill', {
+  const response2 = await fetch('https://zero-step-wheat.vercel.app/api/getSkill', {
     method: 'GET',
     cache: 'no-store',
     headers: {
