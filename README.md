@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## ระบบค้นหางานสำหรับนักศึกษา (ZERO-STEP)
 
-## Getting Started
+ผู้จัดทำโครงงาน
 
-First, run the development server:
+นางสาว กานต์พิชชา คชภูมิ		66070238
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+นางสาว พัทธ์ธีรา บุตรธรรม		66070298
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+นาย วีรภัทร์ เศรษฐชัยน้อย		66070308
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+นาย สิรวิชญ์ จันทร์เต็มดวง		66070314
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+นางสาว สุชญา นาคะรัต		66070316
 
-## Learn More
+นาย แสงชัย โรจน์ธนิกกุล		66070317
 
-To learn more about Next.js, take a look at the following resources:
+นางสาว ไอยรัตน์ เหมือนครุฑ	66070325
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+คำอธิบายโครงงาน
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ระบบค้นหางานสำหรับนักศึกษาฝึกงาน จัดทำขึ้นเพื่อรวบรวมข้อมูล ข่าวสารเกี่ยวกับการประกาศรับนักศึกษาฝึกงานไว้ในแหล่งเดียวกัน เนื่องจากในปัจจุบันมีการประกาศหาตำแหน่งงานหรือตำแหน่งสำหรับนักศึกษาที่ต้องการฝึกงานอยู่ในหลาย ๆ แพลตฟอร์มและในบางแพลตฟอร์มอาจไม่มีความปลอดภัย และเพื่อแก้ปัญหาที่นักศึกษาหาที่ฝึกงานต้องพบเจอบ่อย ๆ จึงจัดทำโครงงานนี้ขึ้นเพื่อแก้ไขปัญหาเหล่านี้ และเพื่อเพิ่มความสะดวกในการค้นหางานสำหรับนักศึกษา และเพิ่มประสิทธิภาพการหางานสำหรับบริษัทที่ต้องการรับนักศึกษาฝึกงาน
